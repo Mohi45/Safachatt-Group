@@ -57,7 +57,7 @@ document.querySelectorAll(".category-btn").forEach(btn => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const phoneNumber = "919625290733"; // ✅ include country code, no +
+  const phoneNumber = "9625290733"; // ✅ include country code, no +
 
   const whatsappButton = document.getElementById("whatsappOrderBtn");
   if (!whatsappButton) {
@@ -92,5 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
   });
 });
+
 
 
