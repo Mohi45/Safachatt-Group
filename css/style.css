@@ -1,0 +1,477 @@
+.css {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #fff7f0;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #ff6f61;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #ffe5e0;
+}
+
+/* Mobile Menu Button */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #ff6f61;
+        margin-top: 10px;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .navbar {
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+}
+
+/* Banner Slider */
+.banner-slider {
+    position: relative;
+    width: 100%;
+    max-height: 100;
+    overflow: hidden;
+    margin-top: 60px;
+    border-radius: 10px;
+}
+
+.banner-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    transition: opacity 0.5s ease;
+}
+
+/* Show the active image */
+.banner-slider img.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Header */
+header {
+    background: #ff6f61;
+    color: white;
+    text-align: center;
+    padding: 40px 15px;
+}
+
+header h1 {
+    font-size: 2.5em;
+}
+
+header p {
+    font-size: 1.2em;
+    margin-top: 5px;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2em;
+}
+
+/* Categories */
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background: #ffb8ab;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: #ff6f61;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    /* Center the entire grid content */
+    justify-items: center;
+    /* Center each product card */
+    align-items: start;
+    background: #fff7f0;
+    text-align: center;
+}
+
+/* Product card */
+.product {
+    background: #ffece5;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    padding: 12px;
+    width: 180px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.product h3 {
+    margin: 8px 0 4px;
+    font-size: 1rem;
+}
+
+.product .desc {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.product p {
+    font-weight: bold;
+    color: #ff3b2f;
+    margin: 6px 0;
+}
+
+/* Quantity buttons */
+.quantity-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.quantity-selector button {
+    background: #ff6f61;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.quantity-selector input {
+    width: 35px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+/* Responsive: smaller grid on mobile */
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        justify-content: center;
+        /* Ensures grid centers inside parent */
+        justify-items: center;
+        /* Centers each card */
+    }
+
+    .product {
+        width: 160px;
+        padding: 10px;
+    }
+
+    .product img {
+        height: 100px;
+    }
+
+    .product h3 {
+        font-size: 0.9rem;
+    }
+
+    .product .desc {
+        font-size: 0.75rem;
+    }
+
+    .quantity-selector button {
+        padding: 3px 8px;
+    }
+}
+
+
+/* Address / WhatsApp */
+.address-input {
+    max-width: 500px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.address-input textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.whatsapp-order-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 20px auto 50px auto;
+}
+
+.whatsapp-order-btn:hover {
+    background: #1ebe57;
+}
+
+.whatsapp-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.gallery img {
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+/* Testimonials */
+.testimonials {
+    background: #ffe6dc;
+    padding: 40px 15px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+.testimonials h2 {
+    margin-bottom: 30px;
+}
+
+.testimonial {
+    background: #fff0eb;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.testimonial span {
+    font-weight: bold;
+    color: #ff6f61;
+}
+
+/* Footer */
+footer {
+    background: #ff6f61;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.footer-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.footer-item p {
+    margin: 8px 0;
+    font-size: 1.2em;
+}
+
+.footer-item i {
+    margin-right: 8px;
+    color: #ffd700;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #1eebad;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #f0eaea;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.quantity-selector button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #ff6f61;
+    color: white;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.quantity-selector button:hover {
+    background: #ff4a3a;
+}
+
+.quantity-selector input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 5px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    nav {
+        gap: 15px;
+        font-size: 14px;
+    }
+
+    .whatsapp-order-btn {
+        width: 90%;
+        font-size: 1em;
+        padding: 10px 15px;
+        gap: 8px;
+    }
+
+    .whatsapp-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
