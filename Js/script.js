@@ -56,4 +56,41 @@ document.querySelectorAll(".category-btn").forEach(btn => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => loadProducts());
+document.addEventListener("DOMContentLoaded", () => {
+  const phoneNumber = "919625290733"; // ✅ include country code, no +
+
+  const whatsappButton = document.getElementById("whatsappOrderBtn");
+  if (!whatsappButton) {
+    console.error("❌ WhatsApp button not found!");
+    return;
+  }
+
+  whatsappButton.addEventListener("click", () => {
+    const inputs = document.querySelectorAll(".product input");
+    const address = document.getElementById("userAddress")?.value.trim() || "";
+    let orderItems = [];
+
+    inputs.forEach(input => {
+      const qty = parseInt(input.value);
+      if (qty > 0) {
+        const productName = input.closest(".product").querySelector("h3").textContent;
+        orderItems.push(`${qty} × ${productName}`);
+      }
+    });
+
+    if (orderItems.length === 0) {
+      alert("Please select at least one product to order.");
+      return;
+    }
+
+    if (!address) {
+      alert("Please enter your delivery address.");
+      return;
+    }
+
+    const message = `Hello, I want to order:\n${orderItems.join('\n')}\n\nDelivery Address:\n${address}`;
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+  });
+});
+
+
