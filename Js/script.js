@@ -56,10 +56,13 @@ document.querySelectorAll(".category-btn").forEach(btn => {
   });
 });
 
+// WhatsApp order button
 document.addEventListener("DOMContentLoaded", () => {
-  const phoneNumber = "9625290733"; // ✅ include country code, no +
+  loadProducts(); // load all products initially
 
+  const phoneNumber = "919625290733"; // country code + number, no +
   const whatsappButton = document.getElementById("whatsappOrderBtn");
+
   if (!whatsappButton) {
     console.error("❌ WhatsApp button not found!");
     return;
@@ -88,10 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const message = `Hello, I want to order:\n${orderItems.join('\n')}\n\nDelivery Address:\n${address}`;
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+    // Construct WhatsApp message
+    const message = `Hello, I want to order:%0A${orderItems.join('%0A')}%0A%0ADelivery Address:%0A${encodeURIComponent(address)}`;
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
+    window.open(whatsappURL, "_blank");
   });
 });
-
-
-
