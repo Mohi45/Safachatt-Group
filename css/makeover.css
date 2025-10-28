@@ -1,0 +1,175 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* NAVBAR */
+nav {
+    background: #ff6f61;
+    padding: 12px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* ARTIST INTRO */
+.artist-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 10%;
+    background: #fff7f0;
+    flex-wrap: wrap;
+}
+
+.artist-intro .intro-content h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.artist-intro p {
+    margin-bottom: 15px;
+}
+
+.artist-img {
+    width: 300px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.cta-btn {
+    padding: 10px 20px;
+    background: #ff6f61;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+/* SERVICES */
+.makeover-services {
+    text-align: center;
+    padding: 60px 8%;
+}
+
+.service-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.service-card {
+    background: #fff;
+    padding: 20px;
+    width: 280px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px #ccc;
+}
+
+.service-card h3 {
+    color: #ff6f61;
+}
+
+.price {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* GALLERY */
+.gallery {
+    text-align: center;
+    padding: 60px 8%;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* CONTACT */
+.contact {
+    background: #fff7f0;
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.booking-form {
+    max-width: 500px;
+    margin: auto;
+    display: grid;
+    gap: 12px;
+}
+
+input,
+select,
+textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+
+textarea {
+    height: 80px;
+}
+
+.whatsapp-btn {
+    padding: 14px 20px;
+    background: #25d366;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+/* FOOTER */
+footer {
+    background: #ff6f61;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .artist-intro {
+        flex-direction: column;
+        text-align: center;
+    }
+}

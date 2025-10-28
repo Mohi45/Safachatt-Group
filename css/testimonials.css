@@ -1,0 +1,28 @@
+.testimonials {
+    background: #ffe6dc;
+    padding: 40px 15px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+.testimonials h2 {
+    margin-bottom: 30px;
+}
+
+.testimonial {
+    background: #fff0eb;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.testimonial span {
+    font-weight: bold;
+    color: #ff6f61;
+}

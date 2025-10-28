@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Jyoti's Cosmetic House</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/checkout.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation (same as main page) -->
+    <nav class="navbar">
+        <div class="logo">Safachatt Group</div>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#products">Products</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="checkout-container">
+        <h2 class="checkout-title">Checkout Summary</h2>
+        <div id="cartItems"></div>
+        <div class="total-amount" id="totalAmount"></div>
+
+        <div class="upi-section">
+            <h3>Pay via UPI</h3>
+            <p class="upi-id">UPI ID: <strong>9625290733@ybl</strong></p>
+            <img src="img/upi-qr.png" alt="UPI QR Code">
+        </div>
+
+        <div class="address-input">
+            <label for="checkoutAddress">Enter Delivery Address:</label>
+            <textarea id="checkoutAddress" placeholder="Type your full address here" rows="3" required></textarea>
+        </div>
+
+        <button class="whatsapp-btn" id="confirmWhatsApp">Confirm & Send via WhatsApp</button>
+    </div>
+
+    <footer>
+        <p style="text-align:center; margin-top:40px; color:#888;">© 2025 Jyoti's Cosmetic House. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartContainer = document.getElementById("cartItems");
+            const totalAmountEl = document.getElementById("totalAmount");
+            const confirmBtn = document.getElementById("confirmWhatsApp");
+            const cartData = JSON.parse(localStorage.getItem("cartData")) || [];
+            let totalAmount = 0;
+
+            if (cartData.length === 0) {
+                cartContainer.innerHTML = "<p>No items in cart. Go back and select products.</p>";
+                confirmBtn.disabled = true;
+                return;
+            }
+
+            cartData.forEach(item => {
+                const subtotal = item.qty * item.price;
+                totalAmount += subtotal;
+                cartContainer.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="cart-item-details">
+              <h4>${item.name}</h4>
+              <span>${item.qty} × ₹${item.price}</span>
+            </div>
+            <div class="cart-item-price">₹${subtotal}</div>
+          </div>
+        `;
+            });
+
+            totalAmountEl.textContent = "Total: ₹" + totalAmount;
+
+            confirmBtn.addEventListener("click", () => {
+                const address = document.getElementById("checkoutAddress").value.trim();
+                if (!address) {
+                    alert("Please enter your delivery address.");
+                    return;
+                }
+
+                const phoneNumber = "919625290733";
+                let message = "Hello, I want to confirm my order:%0A";
+                cartData.forEach(item => {
+                    message += `${item.qty} × ${item.name} = ₹${item.qty * item.price}%0A`;
+                });
+                message += `%0ATotal: ₹${totalAmount}%0A%0AAddress: ${encodeURIComponent(address)}%0A%0APayment done via UPI: 9625290733@ybl`;
+
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+            });
+        });
+    </script>
+
+</body>
+
+</html>

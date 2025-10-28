@@ -1,0 +1,137 @@
+/* Center the checkout button and make it stylish */
+.checkout-btn {
+    display: block;
+    margin: 30px auto;
+    /* centers horizontally */
+    padding: 15px 40px;
+    /* bigger clickable area */
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background: #d05d8b;
+    /* pinkish color, matches your brand */
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 5px 15px rgba(208, 93, 139, 0.4);
+    text-align: center;
+}
+
+.checkout-btn:hover {
+    background: #b84c76;
+    /* slightly darker on hover */
+    box-shadow: 0 8px 20px rgba(208, 93, 139, 0.6);
+}
+
+.checkout-container {
+    max-width: 800px;
+    margin: 120px auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+}
+
+.checkout-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #d05d8b;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-details h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.cart-item-details span {
+    color: #666;
+    font-size: 14px;
+}
+
+.cart-item-price {
+    font-weight: bold;
+    color: #444;
+}
+
+.total-amount {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    color: #222;
+}
+
+.upi-section {
+    margin-top: 25px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.upi-section img {
+    width: 150px;
+    margin-top: 10px;
+}
+
+.upi-id {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 10px;
+}
+
+.address-input textarea {
+    width: 100%;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+}
+
+.whatsapp-btn {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+    background: #20b65b;
+}
+
+@media (max-width: 600px) {
+    .whatsapp-btn {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+}

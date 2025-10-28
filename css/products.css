@@ -1,0 +1,151 @@
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background: #ffb8ab;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: 600;
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background: #ff6f61;
+}
+
+/* Products Grid */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    justify-items: center;
+    align-items: start;
+    background: #fff7f0;
+    text-align: center;
+}
+
+/* Product Card */
+.product {
+    background: #ffece5;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    padding: 12px;
+    width: 180px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Zoom Effect */
+.product img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+
+.product:hover img {
+    transform: scale(1.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Product Info */
+.product h3 {
+    margin: 8px 0 4px;
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.product .desc {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.product p {
+    font-weight: bold;
+    color: #ff3b2f;
+    margin: 6px 0;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.quantity-selector button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #ff6f61;
+    color: white;
+    font-size: 1.2em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.quantity-selector button:hover {
+    background: #ff4a3a;
+}
+
+.quantity-selector input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .product {
+        width: 160px;
+        padding: 10px;
+    }
+
+    .product img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .product h3 {
+        font-size: 0.9rem;
+    }
+
+    .product .desc {
+        font-size: 0.75rem;
+    }
+
+    .quantity-selector button {
+        width: 28px;
+        height: 28px;
+        font-size: 1em;
+    }
+}

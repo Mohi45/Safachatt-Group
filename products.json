@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Face Cream",
+        "desc": "Hydrating skin cream",
+        "price": 299,
+        "category": "skincare",
+        "img": "img/face-cream.png"
+    },
+    {
+        "name": "Face Wash",
+        "desc": "Gentle cleanser",
+        "price": 199,
+        "category": "skincare",
+        "img": "img/face-wash.png"
+    },
+    {
+        "name": "Lipstick",
+        "desc": "Matte colors",
+        "price": 399,
+        "category": "makeup",
+        "img": "img/youth.png"
+    },
+    {
+        "name": "Shampoo",
+        "desc": "Smooth hair",
+        "price": 299,
+        "category": "hair",
+        "img": "img/sampoo.png"
+    }
+]

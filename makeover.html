@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jyoti's Makeover</title>
+    <link rel="stylesheet" href="css/makeover.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/footer.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">Jyoti's Makeover House</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="makeover.html" class="active">Makeover</a></li>
+            <li><a href="bridal-packages.html" class="active">Bridal Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Artist Intro -->
+    <section class="artist-intro">
+        <div class="intro-content">
+            <h2>Professional Makeup Artist</h2>
+            <p>Transforming beauty with flawless HD makeup techniques</p>
+            <a href="#contact" class="cta-btn">Book Now</a>
+        </div>
+        <img src="img/makeover/artist-placeholder.jpg" class="artist-img" alt="Artist Image">
+    </section>
+
+    <!-- Services Section -->
+    <section class="makeover-services">
+        <h2>Our Services</h2>
+        <div class="service-boxes">
+            <div class="service-card">
+                <h3>Bridal Makeup</h3>
+                <p>Premium bridal package with HD finish</p>
+                <span class="price">₹6,999 onwards</span>
+            </div>
+            <div class="service-card">
+                <h3>Party Makeup</h3>
+                <p>Stunning party glam look</p>
+                <span class="price">₹999 onwards</span>
+            </div>
+            <div class="service-card">
+                <h3>HD Makeup</h3>
+                <p>Camera-ready flawless skin</p>
+                <span class="price">₹2,999 onwards</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+        <h2>Our Work</h2>
+        <div class="gallery-grid">
+            <img src="img/makeover/img1.jpg" alt="add1">
+            <img src="img/makeover/img2.jpg" alt="add2">
+            <img src="img/makeover/img3.jpg" alt="add3">
+            <img src="img/makeover/img4.jpg" alt="add4">
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="contact" id="contact">
+        <h2>Book Your Makeover</h2>
+
+        <form class="booking-form" onsubmit="return sendWhatsApp(event)">
+            <input type="text" id="userName" placeholder="Your Name" required>
+            <input type="number" id="phone" placeholder="Phone Number" required>
+            <select id="service">
+                <option>Bridal Makeup</option>
+                <option>Party Makeup</option>
+                <option>HD Makeup</option>
+            </select>
+            <input type="date" id="date" required>
+            <textarea id="message" placeholder="Additional Message"></textarea>
+
+            <button type="submit" class="whatsapp-btn">Send on WhatsApp</button>
+        </form>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-item">
+                <h3>Contact Us</h3>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/919625290733"
+                        target="_blank">+91-9625290733</a></p>
+                <p><i class="fas fa-envelope"></i> Email: <a
+                        href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a></p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: C8/17 Block C, Govind Puram, Ghaziabad 201013</p>
+            </div>
+        </div>
+        <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function sendWhatsApp(event) {
+            event.preventDefault();
+            const msg =
+                `Hi, I am ${userName.value}. I want ${service.value} on ${date.value}. My number is ${phone.value}. ${message.value}`;
+            window.open(`https://wa.me/919625290733?text=${encodeURIComponent(msg)}`, "_blank");
+        }
+    </script>
+
+</body>
+
+</html>
