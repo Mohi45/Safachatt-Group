@@ -17,10 +17,11 @@
             <img src="/img/group.png" alt="Jyoti's Makeover Logo" class="logo-img">
             Safachatt Group
         </div>
+        <div class="name">Jyoti's Makeover</div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="makeover.html" class="active">Makeover</a></li>
-            <li><a href="bridal-packages.html">Bridal Makeover</a></li>
+            <li><a href="bridal-packages.html" class="active">Pre-Bridal</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -43,12 +44,6 @@
                 </button>
                 <button class="service-btn" onclick="showService('pedicure', event)">
                     <img src="img/list-icon.png" alt=""> PEDICURE
-                </button>
-                <button class="service-btn" onclick="showService('nailart', event)">
-                    <img src="img/list-icon.png" alt=""> NAIL ART
-                </button>
-                <button class="service-btn" onclick="showService('makeup', event)">
-                    <img src="img/list-icon.png" alt=""> MAKEUP
                 </button>
             </div>
 
@@ -126,55 +121,44 @@
             facial: {
                 title: "Facials",
                 desc: "Rejuvenate your skin with our range of refreshing and glow-enhancing facials.",
-                prices: ["Glow Facial – ₹799", "Fruit Facial – ₹999", "Gold Facial – ₹1299", "Diamond Facial – ₹1499"],
+                prices: ["Fruit Facial – ₹399", "Gold Facial – ₹599", "Silver Gold Facial – ₹699", "Lotus Facial – ₹999", "Diamond Facial – ₹1399", "O3 Facial – ₹1499"],
                 img: "img/services/facial.png"
             },
             waxing: {
                 title: "Waxing",
                 desc: "Smooth and glowing skin with gentle and effective waxing services.",
-                prices: ["Hand Wax – ₹249", "Leg Wax – ₹399", "Full Body – ₹799", "Brazilian – ₹999"],
+                prices: ["Honey Hand Wax – ₹249", "Honey Half Leg Wax – ₹249", "Honey Full Leg Wax – ₹349", "Rica Hand Wax – ₹299", "Rica Half Leg Wax – ₹349", "Honey Full Leg Wax – ₹399", "Full Body Wax – ₹899"],
                 img: "img/services/waxing.jpg"
             },
             bleach: {
                 title: "Bleach",
                 desc: "Instant brightness and tan removal with premium bleach treatments.",
-                prices: ["Face Bleach – ₹299", "Body Bleach – ₹699"],
+                prices: ["Fruit Bleach – ₹149", "Gold Bleach – ₹159", "Diamond Bleach – ₹199", "O3 Bleach – 249"],
                 img: "img/services/bleach.jpeg"
             },
             manicure: {
                 title: "Manicure",
                 desc: "Pamper your hands with our relaxing and rejuvenating manicure services.",
-                prices: ["Basic – ₹299", "Spa Manicure – ₹499"],
+                prices: ["Classic Manicure – ₹499", "Kit Manicure – ₹999"],
                 img: "img/services/manicure.jpg"
             },
             pedicure: {
                 title: "Pedicure",
                 desc: "Relax your feet and revitalize your skin with soothing pedicure sessions.",
-                prices: ["Classic Pedicure – ₹399", "Spa Pedicure – ₹599"],
+                prices: ["Classic Pedicure – ₹499", "Kit Pedicure – ₹999"],
                 img: "img/services/padicure.jpg"
-            },
-            nailart: {
-                title: "Nail Art",
-                desc: "Trendy and creative nail art designs to add style to your fingertips.",
-                prices: ["Basic Design – ₹199", "3D Nail Art – ₹499"],
-                img: "img/services/nail.png"
-            },
-            makeup: {
-                title: "Makeup",
-                desc: "Be the star of any event with our professional makeup services.",
-                prices: ["Party Makeup – ₹1499", "HD Makeup – ₹2499", "Bridal Makeup – ₹4999"],
-                img: "img/services/makeup.jpg"
             }
         };
 
         function showService(key, event) {
+            // Highlight the active button
             document.querySelectorAll(".service-btn").forEach(btn => btn.classList.remove("active"));
             event.currentTarget.classList.add("active");
 
             const data = serviceData[key];
             const details = document.getElementById("service-details");
 
-            // ✅ Sharp background (no blur/overlay)
+            // Background setup
             details.style.backgroundImage = `url('${data.img}')`;
             details.style.backgroundSize = "cover";
             details.style.backgroundPosition = "center";
@@ -184,33 +168,44 @@
             details.style.color = "#111";
             details.style.padding = "40px";
 
-            // Clean text layout
+            // Build dynamic HTML with 3 items per row
             const html = `
-        <div style="max-width: 600px;">
-            <h3 style="font-size: 2rem; color: #000; margin-bottom: 10px; text-transform: uppercase;">
-                ${data.title}
-            </h3>
-            <p style="font-size: 1.1rem; margin-bottom: 20px; color: #222;">
-                ${data.desc}
-            </p>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-                ${data.prices.map(p => `
-                    <li style="
-                        margin: 8px 0;
-                        padding: 10px 15px;
-                        border-left: 4px solid #ff69b4;
-                        background: rgba(255,255,255,0.8);
-                        border-radius: 10px;
-                        font-weight: 500;
-                    ">
-                        ${p}
-                    </li>
-                `).join("")}
-            </ul>
-        </div>
-    `;
+    <div style="max-width: 800px;">
+      <h3 style="font-size: 2rem; color: #000; margin-bottom: 10px; text-transform: uppercase;">
+        ${data.title}
+      </h3>
+      <p style="font-size: 1.1rem; margin-bottom: 25px; color: #222;">
+        ${data.desc}
+      </p>
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      ">
+        ${data.prices.map(p => `
+          <div style="
+            background: rgba(255,255,255,0.85);
+            border-left: 4px solid #ff69b4;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: 0.3s;
+          " onmouseover="this.style.background='#ff69b4'; this.style.color='#fff';" onmouseout="this.style.background='rgba(255,255,255,0.85)'; this.style.color='#111';">
+            ${p}
+            <span style="font-size: 1.2rem;">🔔</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
             details.innerHTML = html;
         }
+
 
         // Load first service on page load
         document.addEventListener("DOMContentLoaded", () => {
