@@ -23,6 +23,13 @@ body {
     font-size: 1.1rem;
 }
 
+.name {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 2.1rem;
+}
+
 .logo-img {
     width: 40px;
     height: 40px;
@@ -108,9 +115,10 @@ body {
     color: white;
     transform: scale(1.05);
     border-color: #ff9b85;
+
 }
 
-/* Elegant Service Details Section */
+/* Service Details - Clear Background */
 .service-details {
     flex: 3;
     background-size: cover;
@@ -125,7 +133,13 @@ body {
     overflow: hidden;
 }
 
-/* Text inside service */
+/* Remove any overlay or shadow to keep background clear */
+.service-details::before {
+    content: none !important;
+    background: none !important;
+}
+
+/* Text Styling */
 .service-details h3 {
     font-size: 30px;
     font-weight: 600;
@@ -133,6 +147,7 @@ body {
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-shadow: none;
 }
 
 .service-details p {
@@ -142,6 +157,7 @@ body {
     margin-bottom: 25px;
     max-width: 80%;
     font-style: italic;
+    text-shadow: none;
 }
 
 .service-details ul {
@@ -154,7 +170,7 @@ body {
 }
 
 .service-details ul li {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     padding: 12px 18px;
     border-left: 4px solid #e91e63;
     border-radius: 8px;
@@ -167,7 +183,7 @@ body {
 }
 
 .service-details ul li:hover {
-    background: rgba(255, 182, 193, 0.3);
+    background: rgba(255, 182, 193, 0.4);
     transform: translateX(5px);
 }
 
@@ -335,5 +351,9 @@ footer {
     .service-btn {
         font-size: 0.9rem;
         padding: 10px 20px;
+    }
+
+    .service-details {
+        padding: 25px;
     }
 }
