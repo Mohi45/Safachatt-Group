@@ -2,96 +2,118 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jyoti's Makeover</title>
-    <link rel="stylesheet" href="css/makeover.css">
-    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/makeover.css" />
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 
 <body>
-
-    <nav>
-        <div class="logo">Jyoti's Makeover House</div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/img/group.png" alt="Jyoti's Makeover Logo" class="logo-img">
+            Safachatt Group
+        </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="makeover.html" class="active">Makeover</a></li>
-            <li><a href="bridal-packages.html" class="active">Bridal Pricing</a></li>
+            <li><a href="bridal-packages.html">Bridal Makeover</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
-
-    <!-- Artist Intro -->
-    <section class="artist-intro">
-        <div class="intro-content">
-            <h2>Professional Makeup Artist</h2>
-            <p>Transforming beauty with flawless HD makeup techniques</p>
-            <a href="#contact" class="cta-btn">Book Now</a>
-        </div>
-        <img src="img/makeover/artist-placeholder.jpg" class="artist-img" alt="Artist Image">
-    </section>
-
-    <!-- Services Section -->
-    <section class="makeover-services">
-        <h2>Our Services</h2>
-        <div class="service-boxes">
-            <div class="service-card">
-                <h3>Bridal Makeup</h3>
-                <p>Premium bridal package with HD finish</p>
-                <span class="price">₹6,999 onwards</span>
+    <!-- Makeover Section -->
+    <section class="makeover-section">
+        <h2 class="section-title">Our Beauty Services</h2>
+        <div class="makeover-container">
+            <div class="services-list">
+                <button class="service-btn active" onclick="showService('facial', event)">
+                    <img src="img/list-icon.png" alt=""> FACIALS
+                </button>
+                <button class="service-btn" onclick="showService('waxing', event)">
+                    <img src="img/list-icon.png" alt=""> WAXING
+                </button>
+                <button class="service-btn" onclick="showService('bleach', event)">
+                    <img src="img/list-icon.png" alt=""> BLEACH
+                </button>
+                <button class="service-btn" onclick="showService('manicure', event)">
+                    <img src="img/list-icon.png" alt=""> MANICURE
+                </button>
+                <button class="service-btn" onclick="showService('pedicure', event)">
+                    <img src="img/list-icon.png" alt=""> PEDICURE
+                </button>
+                <button class="service-btn" onclick="showService('nailart', event)">
+                    <img src="img/list-icon.png" alt=""> NAIL ART
+                </button>
+                <button class="service-btn" onclick="showService('makeup', event)">
+                    <img src="img/list-icon.png" alt=""> MAKEUP
+                </button>
             </div>
-            <div class="service-card">
-                <h3>Party Makeup</h3>
-                <p>Stunning party glam look</p>
-                <span class="price">₹999 onwards</span>
-            </div>
-            <div class="service-card">
-                <h3>HD Makeup</h3>
-                <p>Camera-ready flawless skin</p>
-                <span class="price">₹2,999 onwards</span>
-            </div>
-        </div>
-    </section>
 
-    <!-- Gallery -->
-    <section class="gallery">
-        <h2>Our Work</h2>
-        <div class="gallery-grid">
-            <img src="img/makeover/img1.jpg" alt="add1">
-            <img src="img/makeover/img2.jpg" alt="add2">
-            <img src="img/makeover/img3.jpg" alt="add3">
-            <img src="img/makeover/img4.jpg" alt="add4">
+            <div class="service-details" id="service-details">
+                <!-- Dynamic service content will load here -->
+            </div>
         </div>
     </section>
 
-    <!-- Booking Form -->
-    <section class="contact" id="contact">
-        <h2>Book Your Makeover</h2>
+    <!-- WhatsApp Booking Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2>BOOK YOUR MAKEOVER</h2>
+            <p class="subtitle">Get in touch with us on WhatsApp for instant booking and queries.</p>
 
-        <form class="booking-form" onsubmit="return sendWhatsApp(event)">
-            <input type="text" id="userName" placeholder="Your Name" required>
-            <input type="number" id="phone" placeholder="Phone Number" required>
-            <select id="service">
-                <option>Bridal Makeup</option>
-                <option>Party Makeup</option>
-                <option>HD Makeup</option>
-            </select>
-            <input type="date" id="date" required>
-            <textarea id="message" placeholder="Additional Message"></textarea>
+            <form id="bookingForm" onsubmit="openWhatsApp(event)">
+                <div class="form-group">
+                    <div class="form-field">
+                        <label>Your Name *</label>
+                        <input type="text" id="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Service Type *</label>
+                        <select id="service" required>
+                            <option value="">Select Service</option>
+                            <option>Bridal Makeup</option>
+                            <option>Party Makeup</option>
+                            <option>Hair Styling</option>
+                            <option>Pre-Wedding Shoot Look</option>
+                        </select>
+                    </div>
+                </div>
 
-            <button type="submit" class="whatsapp-btn">Send on WhatsApp</button>
-        </form>
+                <div class="form-group">
+                    <div class="form-field full-width">
+                        <label>Preferred Date *</label>
+                        <input type="date" id="date" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-field full-width">
+                        <label>Message</label>
+                        <textarea id="message" placeholder="Any special request..."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">BOOK ON WHATSAPP</button>
+            </form>
+
+            <p class="call-text">Or call us at <strong>+917905729993</strong></p>
+        </div>
     </section>
 
+    <!-- Footer -->
     <footer id="contact">
         <div class="footer-container">
             <div class="footer-item">
                 <h3>Contact Us</h3>
-                <p><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/919625290733"
-                        target="_blank">+91-9625290733</a></p>
-                <p><i class="fas fa-envelope"></i> Email: <a
-                        href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a></p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp:
+                    <a href="https://wa.me/919625290733" target="_blank">+91-9625290733</a>
+                </p>
+                <p><i class="fas fa-envelope"></i> Email:
+                    <a href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a>
+                </p>
                 <p><i class="fas fa-map-marker-alt"></i> Address: C8/17 Block C, Govind Puram, Ghaziabad 201013</p>
             </div>
         </div>
@@ -99,12 +121,116 @@
     </footer>
 
     <script>
-        function sendWhatsApp(event) {
-            event.preventDefault();
-            const msg =
-                `Hi, I am ${userName.value}. I want ${service.value} on ${date.value}. My number is ${phone.value}. ${message.value}`;
-            window.open(`https://wa.me/919625290733?text=${encodeURIComponent(msg)}`, "_blank");
+
+        const serviceData = {
+            facial: {
+                title: "Facials",
+                desc: "Rejuvenate your skin with our range of refreshing and glow-enhancing facials.",
+                prices: ["Glow Facial – ₹799", "Fruit Facial – ₹999", "Gold Facial – ₹1299", "Diamond Facial – ₹1499"],
+                img: "img/services/facial.png"
+            },
+            waxing: {
+                title: "Waxing",
+                desc: "Smooth and glowing skin with gentle and effective waxing services.",
+                prices: ["Hand Wax – ₹249", "Leg Wax – ₹399", "Full Body – ₹799", "Brazilian – ₹999"],
+                img: "img/services/waxing.jpg"
+            },
+            bleach: {
+                title: "Bleach",
+                desc: "Instant brightness and tan removal with premium bleach treatments.",
+                prices: ["Face Bleach – ₹299", "Body Bleach – ₹699"],
+                img: "img/services/bleach.jpeg"
+            },
+            manicure: {
+                title: "Manicure",
+                desc: "Pamper your hands with our relaxing and rejuvenating manicure services.",
+                prices: ["Basic – ₹299", "Spa Manicure – ₹499"],
+                img: "img/services/manicure.jpg"
+            },
+            pedicure: {
+                title: "Pedicure",
+                desc: "Relax your feet and revitalize your skin with soothing pedicure sessions.",
+                prices: ["Classic Pedicure – ₹399", "Spa Pedicure – ₹599"],
+                img: "img/services/padicure.jpg"
+            },
+            nailart: {
+                title: "Nail Art",
+                desc: "Trendy and creative nail art designs to add style to your fingertips.",
+                prices: ["Basic Design – ₹199", "3D Nail Art – ₹499"],
+                img: "img/services/nail.png"
+            },
+            makeup: {
+                title: "Makeup",
+                desc: "Be the star of any event with our professional makeup services.",
+                prices: ["Party Makeup – ₹1499", "HD Makeup – ₹2499", "Bridal Makeup – ₹4999"],
+                img: "img/services/makeup.jpg"
+            }
+        };
+
+        function showService(key, event) {
+            document.querySelectorAll(".service-btn").forEach(btn => btn.classList.remove("active"));
+            event.currentTarget.classList.add("active");
+
+            const data = serviceData[key];
+            const details = document.getElementById("service-details");
+
+            // ✅ Sharp background (no blur/overlay)
+            details.style.backgroundImage = `url('${data.img}')`;
+            details.style.backgroundSize = "cover";
+            details.style.backgroundPosition = "center";
+            details.style.backgroundRepeat = "no-repeat";
+            details.style.borderRadius = "15px";
+            details.style.transition = "background-image 0.5s ease-in-out";
+            details.style.color = "#111";
+            details.style.padding = "40px";
+
+            // Clean text layout
+            const html = `
+        <div style="max-width: 600px;">
+            <h3 style="font-size: 2rem; color: #000; margin-bottom: 10px; text-transform: uppercase;">
+                ${data.title}
+            </h3>
+            <p style="font-size: 1.1rem; margin-bottom: 20px; color: #222;">
+                ${data.desc}
+            </p>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                ${data.prices.map(p => `
+                    <li style="
+                        margin: 8px 0;
+                        padding: 10px 15px;
+                        border-left: 4px solid #ff69b4;
+                        background: rgba(255,255,255,0.8);
+                        border-radius: 10px;
+                        font-weight: 500;
+                    ">
+                        ${p}
+                    </li>
+                `).join("")}
+            </ul>
+        </div>
+    `;
+            details.innerHTML = html;
         }
+
+        // Load first service on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            const firstBtn = document.querySelector(".service-btn.active") || document.querySelector(".service-btn");
+            showService('facial', { currentTarget: firstBtn });
+        });
+        // WhatsApp booking
+        function openWhatsApp(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const service = document.getElementById('service').value;
+            const date = document.getElementById('date').value;
+            const message = document.getElementById('message').value;
+
+            const phone = "919625290733";
+            const text = `Hello, I'm ${name}. I’d like to book a ${service} on ${date}. ${message ? "Message: " + message : ""}`;
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+            window.open(url, "_blank");
+        }
+
     </script>
 
 </body>

@@ -1,24 +1,33 @@
-/* RESET */
-* {
+/* Global Styles */
+body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fffaf7;
+    color: #333;
 }
 
-/* NAVBAR */
-nav {
+/* Navbar */
+.navbar {
     background: #ff6f61;
-    padding: 12px 25px;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 30px;
 }
 
 .logo {
-    color: white;
+    display: flex;
+    align-items: center;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
 }
 
 .nav-links {
@@ -30,7 +39,7 @@ nav {
 .nav-links a {
     color: white;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .nav-links a.active,
@@ -38,138 +47,293 @@ nav {
     text-decoration: underline;
 }
 
-/* ARTIST INTRO */
-.artist-intro {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/* Makeover Section */
+.makeover-section {
+    background-color: #fff7f2;
     padding: 60px 10%;
-    background: #fff7f0;
-    flex-wrap: wrap;
-}
-
-.artist-intro .intro-content h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.artist-intro p {
-    margin-bottom: 15px;
-}
-
-.artist-img {
-    width: 300px;
-    border-radius: 15px;
-    margin-top: 20px;
-}
-
-.cta-btn {
-    padding: 10px 20px;
-    background: #ff6f61;
-    color: white;
-    border-radius: 20px;
-    text-decoration: none;
-}
-
-/* SERVICES */
-.makeover-services {
     text-align: center;
-    padding: 60px 8%;
 }
 
-.service-boxes {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
-    margin-top: 25px;
-}
-
-.service-card {
-    background: #fff;
-    padding: 20px;
-    width: 280px;
-    border-radius: 10px;
-    box-shadow: 0px 3px 10px #ccc;
-}
-
-.service-card h3 {
+.section-title {
     color: #ff6f61;
-}
-
-.price {
-    display: block;
-    margin-top: 10px;
+    font-size: 2rem;
+    margin-bottom: 40px;
     font-weight: bold;
 }
 
-/* GALLERY */
-.gallery {
-    text-align: center;
-    padding: 60px 8%;
+/* Layout */
+.makeover-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
 }
 
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+/* Service Buttons */
+.services-list {
+    flex: 1;
+    min-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.gallery-grid img {
-    width: 100%;
-    border-radius: 10px;
+.service-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    border: 2px solid #ffb6a0;
+    color: #333;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
 }
 
-/* CONTACT */
-.contact {
-    background: #fff7f0;
-    padding: 60px 8%;
-    text-align: center;
+.service-btn img {
+    width: 40px;
+    height: 40px;
+    filter: sepia(100%) saturate(200%) hue-rotate(10deg);
 }
 
-.booking-form {
-    max-width: 500px;
-    margin: auto;
+.service-btn:hover,
+.service-btn.active {
+    background: #ff69b4;
+    color: white;
+    transform: scale(1.05);
+    border-color: #ff9b85;
+}
+
+/* Elegant Service Details Section */
+.service-details {
+    flex: 3;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 18px;
+    padding: 40px;
+    min-height: 380px;
+    color: #111;
+    transition: background-image 0.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Text inside service */
+.service-details h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #e91e63;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.service-details p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #222;
+    margin-bottom: 25px;
+    max-width: 80%;
+    font-style: italic;
+}
+
+.service-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: grid;
     gap: 12px;
+    max-width: 400px;
+}
+
+.service-details ul li {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px 18px;
+    border-left: 4px solid #e91e63;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.service-details ul li:hover {
+    background: rgba(255, 182, 193, 0.3);
+    transform: translateX(5px);
+}
+
+/* Icon */
+.service-details ul li::after {
+    content: "💄";
+    font-size: 18px;
+    color: #e91e63;
+    margin-left: 8px;
+}
+
+/* Booking Section */
+.contact-section {
+    background: linear-gradient(135deg, #fff7f9, #ffe6ee);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.contact-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(214, 51, 132, 0.15);
+    padding: 40px;
+}
+
+.contact-container h2 {
+    color: #d63384;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* Form Layout */
+.form-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-field.full-width {
+    flex: 100%;
+}
+
+.form-field label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
 }
 
 input,
 select,
 textarea {
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #aaa;
+    padding: 12px 14px;
+    border: 1.8px solid #f3c6d3;
+    border-radius: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #d63384;
+    box-shadow: 0 0 8px rgba(214, 51, 132, 0.25);
 }
 
 textarea {
+    resize: none;
     height: 80px;
 }
 
-.whatsapp-btn {
-    padding: 14px 20px;
-    background: #25d366;
-    border: none;
+/* WhatsApp Booking Button */
+.submit-btn {
+    background: linear-gradient(90deg, #25d366, #1ebe5b);
     color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
     font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
     cursor: pointer;
-    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.3px;
+    margin-top: 10px;
 }
 
-/* FOOTER */
+.submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+}
+
+/* Footer */
 footer {
     background: #ff6f61;
     color: white;
     text-align: center;
-    padding: 10px;
-    margin-top: 30px;
+    padding: 30px 20px;
 }
 
-/* RESPONSIVE */
+.footer-contact h3 {
+    margin-bottom: 10px;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .artist-intro {
+    .makeover-container {
         flex-direction: column;
+        align-items: center;
+    }
+
+    .service-details {
+        width: 100%;
         text-align: center;
+        background-position: center;
+    }
+
+    .service-details p,
+    .service-details ul {
+        max-width: 100%;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    .contact-container {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .contact-container h2 {
+        font-size: 1.6rem;
+    }
+
+    .service-btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
     }
 }
