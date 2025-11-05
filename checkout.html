@@ -10,12 +10,9 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/checkout.css">
-
 </head>
 
 <body>
-
-    <!-- Navigation (same as main page) -->
     <nav class="navbar">
         <div class="logo">Safachatt Group</div>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>
@@ -28,59 +25,97 @@
 
     <div class="checkout-container">
         <h2 class="checkout-title">Checkout Summary</h2>
-        <div id="cartItems"></div>
-        <div class="total-amount" id="totalAmount"></div>
+        <div class="order-id">Order ID: <span id="orderId"></span></div>
+
+        <div class="checkout-items"></div>
+
+        <div class="checkout-summary">
+            <p><strong>Total Amount:</strong> <span id="totalAmount">₹0</span></p>
+            <p style="color: green; font-weight: 600;">🎉 You saved <span id="totalSaved">₹0</span> on this order!</p>
+        </div>
 
         <div class="upi-section">
             <h3>Pay via UPI</h3>
-            <p class="upi-id">UPI ID: <strong>9625290733@ybl</strong></p>
-            <img src="img/upi-qr.png" alt="UPI QR Code">
+            <p>UPI ID: <strong>9625290733@ybl</strong></p>
+            <img src="img/upi-qr.png" alt="UPI QR Code" style="max-width:160px;">
         </div>
 
-        <div class="address-input">
-            <label for="checkoutAddress">Enter Delivery Address:</label>
-            <textarea id="checkoutAddress" placeholder="Type your full address here" rows="3" required></textarea>
-        </div>
+        <label for="checkoutAddress">Enter Delivery Address:</label>
+        <textarea id="checkoutAddress" placeholder="Type your full address here" rows="3" required></textarea>
 
-        <button class="whatsapp-btn" id="confirmWhatsApp">Confirm & Send via WhatsApp</button>
+        <div class="action-buttons">
+            <button class="btn" id="continueShopping">← Continue Shopping</button>
+            <button class="btn" id="confirmWhatsApp">Place Order via WhatsApp</button>
+        </div>
     </div>
 
     <footer>
-        <p style="text-align:center; margin-top:40px; color:#888;">© 2025 Jyoti's Cosmetic House. All Rights Reserved.
+        <p style="text-align:center; margin-top:40px; color:#888;">
+            © 2025 Jyoti's Cosmetic House. All Rights Reserved.
         </p>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const cartContainer = document.getElementById("cartItems");
-            const totalAmountEl = document.getElementById("totalAmount");
+            const container = document.querySelector(".checkout-items");
+            const totalEl = document.getElementById("totalAmount");
+            const savedEl = document.getElementById("totalSaved");
             const confirmBtn = document.getElementById("confirmWhatsApp");
-            const cartData = JSON.parse(localStorage.getItem("cartData")) || [];
-            let totalAmount = 0;
+            const continueBtn = document.getElementById("continueShopping");
+            const orderIdEl = document.getElementById("orderId");
 
-            if (cartData.length === 0) {
-                cartContainer.innerHTML = "<p>No items in cart. Go back and select products.</p>";
+            // 🆔 Auto-generate Order ID
+            const orderId = "ORD" + Date.now().toString().slice(-6);
+            orderIdEl.textContent = orderId;
+
+            // 🛒 Load cart
+            const cart = JSON.parse(localStorage.getItem("cartData")) || [];
+            let total = 0;
+            let totalSaved = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = "<p>No items in cart. Go back and select products.</p>";
                 confirmBtn.disabled = true;
                 return;
             }
 
-            cartData.forEach(item => {
-                const subtotal = item.qty * item.price;
-                totalAmount += subtotal;
-                cartContainer.innerHTML += `
-          <div class="cart-item">
+            // 🧮 Populate items
+            cart.forEach(item => {
+                const originalPrice = item.price;
+                const discount = item.discount || 0;
+                const discountedPrice = (originalPrice * (1 - discount / 100)).toFixed(0);
+                const subtotal = discountedPrice * item.qty;
+                const savedAmount = (originalPrice - discountedPrice) * item.qty;
+
+                total += subtotal;
+                totalSaved += savedAmount;
+
+                container.innerHTML += `
+          <div class="checkout-item">
             <img src="${item.img}" alt="${item.name}">
-            <div class="cart-item-details">
-              <h4>${item.name}</h4>
-              <span>${item.qty} × ₹${item.price}</span>
+            <div>
+              <h3>${item.name}</h3>
+              <p>Qty: ${item.qty}</p>
+              <p>
+                ₹${discountedPrice} 
+                ${discount > 0 ? `<del style="color:gray;">₹${originalPrice}</del> <span style="color:green;">(${discount}% OFF)</span>` : ""}
+              </p>
+              ${discount > 0 ? `<p class="save-msg">You save ₹${savedAmount.toFixed(0)}!</p>` : ""}
             </div>
-            <div class="cart-item-price">₹${subtotal}</div>
+            <div class="item-total">₹${subtotal.toFixed(0)}</div>
           </div>
         `;
             });
 
-            totalAmountEl.textContent = "Total: ₹" + totalAmount;
+            totalEl.textContent = `₹${total.toFixed(0)}`;
+            savedEl.textContent = `₹${totalSaved.toFixed(0)}`;
 
+            // 🔁 Continue Shopping (keep cart data)
+            continueBtn.addEventListener("click", () => {
+                window.location.href = "index.html";
+            });
+
+            // ✅ Place Order via WhatsApp
             confirmBtn.addEventListener("click", () => {
                 const address = document.getElementById("checkoutAddress").value.trim();
                 if (!address) {
@@ -89,17 +124,20 @@
                 }
 
                 const phoneNumber = "919625290733";
-                let message = "Hello, I want to confirm my order:%0A";
-                cartData.forEach(item => {
-                    message += `${item.qty} × ${item.name} = ₹${item.qty * item.price}%0A`;
+                let message = `🧾 *Order Confirmation*%0AOrder ID: ${orderId}%0A%0A`;
+
+                cart.forEach(item => {
+                    const price = (item.price * (1 - (item.discount || 0) / 100)).toFixed(0);
+                    message += `${item.qty} × ${item.name} = ₹${(item.qty * price).toFixed(0)}%0A`;
                 });
-                message += `%0ATotal: ₹${totalAmount}%0A%0AAddress: ${encodeURIComponent(address)}%0A%0APayment done via UPI: 9625290733@ybl`;
+
+                message += `%0A💰 Total: ₹${total.toFixed(0)}%0A🎉 You Saved: ₹${totalSaved.toFixed(0)}%0A%0A📍 Address: ${encodeURIComponent(address)}%0A%0A💳 Payment via UPI: 9625290733@ybl%0A%0A📸 *Please share the payment screenshot as well.*%0A%0AThank you for shopping with *Jyoti’s Cosmetic House!* 🌸`;
+
 
                 window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
             });
         });
     </script>
-
 </body>
 
 </html>

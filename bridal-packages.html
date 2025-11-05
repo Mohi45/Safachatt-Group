@@ -16,11 +16,13 @@
 
     <!-- NAV -->
     <nav class="navbar">
-        <div class="logo">Jyoti's Makeover House</div>
+        <div class="logo">Jyoti's Makeover</div>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="makeover.html">Makeover</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <link rel="stylesheet" href="css/mobile.css">
         </ul>
     </nav>
 
@@ -33,6 +35,18 @@
                 on your wedding day.</p>
         </div>
     </header>
+    <!-- 🌸 Mobile Tip Message -->
+    <div class="mobile-tip">
+        <div class="tip-icon">💡</div>
+        <div class="tip-content">
+            <strong>Tip:</strong> For the best viewing experience, switch to <strong>Desktop Site</strong> mode.
+            <ul>
+                <li>👉 Tap <strong>⋮ (three dots)</strong> on the top-right corner of your browser.</li>
+                <li>👉 Select <strong>“Desktop site”</strong> from the menu.</li>
+            </ul>
+        </div>
+    </div>
+
 
     <!-- PRICE LIST -->
     <section class="bp-pricelist">
@@ -135,7 +149,14 @@
         </div>
         <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
     </footer>
+    <script>
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.querySelector(".nav-links");
 
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("show");
+        });
+    </script>
 </body>
 
 </html>

@@ -1,30 +1,218 @@
 [
     {
-        "name": "Face Cream",
+        "name": "Pilgrim 2% Niacinamide Glow Sunscreen SPF 50PA+++",
         "desc": "Hydrating skin cream",
-        "price": 299,
-        "category": "skincare",
-        "img": "img/face-cream.png"
+        "price": 395,
+        "discount": 18,
+        "category": "SUNSCREEN",
+        "img": "img/skincare/pilgrim.png"
     },
     {
-        "name": "Face Wash",
-        "desc": "Gentle cleanser",
-        "price": 199,
-        "category": "skincare",
-        "img": "img/face-wash.png"
+        "name": "Dr Sheth’s HALDI & HAALURONIC ACID SUNSCREEN SPF 50PA+++",
+        "desc": "Hydrating skin cream",
+        "price": 499,
+        "discount": 15,
+        "category": "SUNSCREEN",
+        "img": "img/skincare/product1.png"
     },
     {
-        "name": "Lipstick",
-        "desc": "Matte colors",
+        "name": "Lakme SUN EXPERT TINT HINT SUNSCREEN SPF 50PA+++",
+        "desc": "Hydrating skin cream",
+        "price": 369,
+        "discount": 10,
+        "category": "SUNSCREEN",
+        "img": "img/skincare/product2.png"
+    },
+    {
+        "name": "Mamaearth Daily Glow SUNSCREEN SPF 50PA+++ (with Vitamin C & Turmeric )",
+        "desc": "Hydrating skin cream",
+        "price": 369,
+        "discount": 8,
+        "category": "SUNSCREEN",
+        "img": "img/skincare/product4.png"
+    },
+    {
+        "name": "Pond’s SERUM-BOOST SUNSCREEN SPF 55PA++ (with Niacinamide – C )",
+        "desc": "Hydrating skin cream",
+        "price": 475,
+        "discount": 5,
+        "category": "SUNSCREEN",
+        "img": "img/skincare/product3.png"
+    },
+    {
+        "name": "Nykaa Love Struck Shower Gel (Stolen Glance)",
+        "desc": "Body Lotion",
+        "price": 499,
+        "discount": 20,
+        "category": "Body-Loation",
+        "img": "img/bodyLotion/bodylotion1.png"
+    },
+    {
+        "name": "Nykaa Love Struck Body Lotion (Skip a Beat)",
+        "desc": "Body Lotion",
+        "price": 499,
+        "discount": 20,
+        "category": "Body-Loation",
+        "img": "img/bodyLotion/bodylotion2.png"
+    },
+    {
+        "name": "Swiss Beauty makeup fixer NATURAL (Alovera With Vitamin E )",
+        "desc": "Make-up Essentials",
+        "price": 240,
+        "discount": 20,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty1.png"
+    },
+    {
+        "name": "Lakmé Peach Milk Moisturiser SPF 24",
+        "desc": "Make-up Essentials",
+        "price": 249,
+        "discount": 10,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty2.png"
+    },
+    {
+        "name": "Swiss Beauty Mattifying Makeup Primer (With Vitamin A & Jojoba)",
+        "desc": "Make-up Essentials",
         "price": 399,
-        "category": "makeup",
-        "img": "img/youth.png"
+        "discount": 25,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty3.png"
     },
     {
-        "name": "Shampoo",
-        "desc": "Smooth hair",
+        "name": "Nykaa SKINshield Anti-Pollution Foundation",
+        "desc": "Make-up Essentials",
+        "price": 799,
+        "discount": 25,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty4.png"
+    },
+    {
+        "name": "Colorbar Aquafeel Pro Foundation",
+        "desc": "Make-up Essentials",
+        "price": 795,
+        "discount": 25,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty5.png"
+    },
+    {
+        "name": "Daily Life Forever52 Pro Artist Ultra Definition Liquid Foundation",
+        "desc": "Make-up Essentials",
+        "price": 1649,
+        "discount": 35,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty6.png"
+    },
+    {
+        "name": "Lakmé 9to5 Infallible Mattifying Base",
+        "desc": "Make-up Essentials",
+        "price": 349,
+        "discount": 10,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty7.png"
+    },
+    {
+        "name": "Swiss Beauty Flawless Finish Daily Wear Lightweight Foundation (Vitamin C & Macadamia Oil)",
+        "desc": "Make-up Essentials",
+        "price": 329,
+        "discount": 10,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty8.png"
+    },
+    {
+        "name": "White Tone Soft & Smooth Face Cream",
+        "desc": "Make-up Essentials",
+        "price": 75,
+        "discount": 5,
+        "category": "Beauty-Essentials",
+        "img": "img/makup/beauty9.png"
+    },
+    {
+        "name": "Plum Vanila Vibes Body Scrub",
+        "desc": "Body Scrub & Face Scrub",
+        "price": 550,
+        "discount": 15,
+        "category": "scrubs",
+        "img": "img/scrubs/scrub1.png"
+    },
+    {
+        "name": "Plum Coffee Wake-a-ccino Body Scrub",
+        "desc": "Body Scrub & Face Scrub",
+        "price": 550,
+        "discount": 15,
+        "category": "scrubs",
+        "img": "img/scrubs/scrub2.png"
+    },
+    {
+        "name": "Plum Minions Goin’s Bananas Body Scrub",
+        "desc": "Body Scrub & Face Scrub",
+        "price": 550,
+        "discount": 15,
+        "category": "scrubs",
+        "img": "img/scrubs/scrub3.png"
+    },
+    {
+        "name": "NYKAA Haldi & Chandan Radiance Face Scrub",
+        "desc": "Body Scrub & Face Scrub",
+        "price": 249,
+        "discount": 15,
+        "category": "scrubs",
+        "img": "img/scrubs/scrub4.png"
+    },
+    {
+        "name": "NYKAA Tea Tree & Neem Purifiying Face Scrub",
+        "desc": "Body Scrub & Face Scrub",
+        "price": 249,
+        "discount": 15,
+        "category": "scrubs",
+        "img": "img/scrubs/scrub5.png"
+    },
+    {
+        "name": "Swiss Beauty Vit-C Serum",
+        "desc": "Serum & Face Serums",
+        "price": 499,
+        "discount": 20,
+        "category": "Serums",
+        "img": "img/Serums/Serum1.png"
+    },
+    {
+        "name": "Swiss Beauty Gold Serum",
+        "desc": "Serum & Face Serums",
+        "price": 449,
+        "discount": 15,
+        "category": "Serums",
+        "img": "img/Serums/Serum2.png"
+    },
+    {
+        "name": "Good Vibes Tea Tree & Papaya",
+        "desc": "Serum & Face Serums",
+        "price": 250,
+        "discount": 10,
+        "category": "Serums",
+        "img": "img/Serums/Serum3.png"
+    },
+    {
+        "name": "Good Vibes Liquorice",
+        "desc": "Serum & Face Serums",
+        "price": 240,
+        "discount": 10,
+        "category": "Serums",
+        "img": "img/Serums/Serum4.png"
+    },
+    {
+        "name": "Plum Vitamin C serum (with redvine extract & mandarin)",
+        "desc": "Body Scrub & Face Scrub",
+        "price": 669,
+        "discount": 25,
+        "category": "Serums",
+        "img": "img/Serums/Serum5.png"
+    },
+    {
+        "name": "Plum Vitamin C serum (with mandarin & kakadu plum)",
+        "desc": "Body Scrub & Face Scrub",
         "price": 299,
-        "category": "hair",
-        "img": "img/sampoo.png"
+        "discount": 15,
+        "category": "Serums",
+        "img": "img/Serums/Serum6.png"
     }
 ]

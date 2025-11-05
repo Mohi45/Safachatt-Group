@@ -26,13 +26,15 @@
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 15px;
+    color: #ff77a9;
 }
 
 .bp-hero p {
     font-size: 1.25rem;
-    color: #fbeff3;
+    color: #b1e6ee;
     max-width: 700px;
     margin: 0 auto;
+    font-style: italic;
 }
 
 /* ===== Price List Section ===== */
