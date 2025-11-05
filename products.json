@@ -173,7 +173,7 @@
         "price": 499,
         "discount": 20,
         "category": "Serums",
-        "img": "img/Serums/Serum1.png"
+        "img": "img/serums/Serum1.png"
     },
     {
         "name": "Swiss Beauty Gold Serum",
@@ -181,7 +181,7 @@
         "price": 449,
         "discount": 15,
         "category": "Serums",
-        "img": "img/Serums/Serum2.png"
+        "img": "img/serums/Serum2.png"
     },
     {
         "name": "Good Vibes Tea Tree & Papaya",
@@ -189,7 +189,7 @@
         "price": 250,
         "discount": 10,
         "category": "Serums",
-        "img": "img/Serums/Serum3.png"
+        "img": "img/serums/Serum3.png"
     },
     {
         "name": "Good Vibes Liquorice",
@@ -197,22 +197,22 @@
         "price": 240,
         "discount": 10,
         "category": "Serums",
-        "img": "img/Serums/Serum4.png"
+        "img": "img/serums/Serum4.png"
     },
     {
         "name": "Plum Vitamin C serum (with redvine extract & mandarin)",
-        "desc": "Body Scrub & Face Scrub",
+        "desc": "Serum & Face Serums",
         "price": 669,
         "discount": 25,
         "category": "Serums",
-        "img": "img/Serums/Serum5.png"
+        "img": "img/serums/Serum5.png"
     },
     {
         "name": "Plum Vitamin C serum (with mandarin & kakadu plum)",
-        "desc": "Body Scrub & Face Scrub",
+        "desc": "Serum & Face Serums",
         "price": 299,
         "discount": 15,
         "category": "Serums",
-        "img": "img/Serums/Serum6.png"
+        "img": "img/serums/Serum6.png"
     }
 ]

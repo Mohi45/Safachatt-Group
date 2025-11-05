@@ -29,7 +29,6 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
     padding: 20px;
-    justify-content: center;
     justify-items: center;
     align-items: start;
     background: #fff7f0;
@@ -37,7 +36,7 @@
 }
 
 /* 🔹 Product Card */
-.product {
+.product-card {
     background: #ffece5;
     border-radius: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -46,66 +45,64 @@
     width: 180px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    position: relative;
 }
 
-.product:hover {
+.product-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* 🔹 Image Zoom Effect */
-.product img {
+.product-card img {
     width: 100%;
     height: 220px;
-    /* fixed height for uniformity */
     object-fit: contain;
-    /* keeps the full image visible without distortion */
     background-color: #fff;
-    /* adds a clean backdrop */
     border-radius: 12px;
     padding: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.product:hover img {
+.product-card:hover img {
     transform: scale(1.2);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* 🔹 Product Info */
-.product h3 {
+.product-card h3 {
     margin: 8px 0 4px;
     font-size: 1rem;
     color: #333;
     font-weight: 600;
 }
 
-.product .desc {
+.product-card .desc {
     font-size: 0.85rem;
     color: #666;
 }
 
-/* 💰 Product Price Styling */
-.product p {
+.product-card p {
     font-size: 1rem;
     margin: 8px 0;
     font-weight: 600;
     color: #222;
 }
 
-.product .discounted {
+.product-card .discounted {
     color: #e91e63;
     font-weight: 700;
     margin-right: 5px;
 }
 
-.product .old-price {
+.product-card .old-price {
     color: #777;
     text-decoration: line-through;
     margin: 0 5px;
     font-weight: 400;
 }
 
-.product .offer-percent {
+.product-card .offer-percent {
     color: #2e7d32;
     font-weight: 600;
     font-size: 0.9rem;
@@ -222,39 +219,20 @@
     }
 }
 
-/* 📱 Responsive Design */
-@media (max-width: 600px) {
-    .products {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+@keyframes popIn {
+    from {
+        transform: scale(0.6);
+        opacity: 0;
     }
 
-    .product {
-        width: 160px;
-        padding: 10px;
-    }
-
-    .product img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .product h3 {
-        font-size: 0.9rem;
-    }
-
-    .product .desc {
-        font-size: 0.75rem;
-    }
-
-    .quantity-selector button {
-        width: 28px;
-        height: 28px;
-        font-size: 1em;
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
 }
 
 /* 🔖 Dynamic SALE Ribbon */
-.product .sale-badge {
+.product-card .sale-badge {
     position: absolute;
     top: 10px;
     left: -5px;
@@ -270,14 +248,94 @@
     animation: popIn 0.4s ease;
 }
 
-@keyframes popIn {
-    from {
-        transform: scale(0.6);
-        opacity: 0;
+/* Cart counter badge */
+.cart-counter {
+    background: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: -10px;
+}
+
+/* Floating buttons */
+#clearCart,
+#goToCheckout {
+    position: fixed;
+    bottom: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+#goToCheckout {
+    right: 20px;
+    background-color: #ff6f61;
+}
+
+#clearCart {
+    right: 170px;
+    background-color: #555;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 
-    to {
-        transform: scale(1);
-        opacity: 1;
+    .product-card {
+        width: 160px;
+        padding: 10px;
     }
+
+    .product-card img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .product-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .product-card .desc {
+        font-size: 0.75rem;
+    }
+
+    .quantity-selector button {
+        width: 28px;
+        height: 28px;
+        font-size: 1em;
+    }
+}
+
+/* 🔹 Add to Cart Button in Product Card */
+.product-card button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff6f61;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.product-card button:hover {
+    background-color: #ff4a3a;
+    transform: scale(1.05);
+}
+
+.product-card button:active {
+    transform: scale(0.98);
 }

@@ -1,46 +1,3 @@
-/* Center the checkout button and make it stylish */
-.checkout-btn {
-    display: block;
-    margin: 30px auto;
-    /* centers horizontally */
-    padding: 15px 40px;
-    /* bigger clickable area */
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    background: #d05d8b;
-    /* pinkish color, matches your brand */
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    box-shadow: 0 5px 15px rgba(208, 93, 139, 0.4);
-    text-align: center;
-}
-
-.checkout-btn:hover {
-    background: #b84c76;
-    /* slightly darker on hover */
-    box-shadow: 0 8px 20px rgba(208, 93, 139, 0.6);
-}
-
-.checkout-container {
-    max-width: 800px;
-    margin: 120px auto;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 20px 30px;
-}
-
-.checkout-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #d05d8b;
-}
-
 /* 🌸 Global Styles */
 body {
     background: #fffaf7;
@@ -50,29 +7,23 @@ body {
 
 /* 🌸 Checkout Container */
 .checkout-container {
-    max-width: 700px;
-    margin: 50px auto;
-    background: #fff7f4;
-    border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    max-width: 800px;
+    margin: 120px auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px 30px;
+    padding-bottom: 120px;
+    /* Space for fixed buttons */
 }
 
-/* 🌸 Title and Order ID */
+/* 🌷 Title */
 .checkout-title {
     text-align: center;
-    color: #ff6f61;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-}
-
-.order-id {
-    text-align: right;
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 10px;
-    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #d05d8b;
 }
 
 /* 🌸 Cart Items */
@@ -111,18 +62,11 @@ body {
     font-size: 0.9rem;
 }
 
-/* 🌸 Pricing Info */
 .item-total {
     font-weight: 600;
     color: #ff6f61;
     text-align: right;
     min-width: 80px;
-}
-
-.old-price {
-    font-size: 0.85rem;
-    color: #999;
-    text-decoration: line-through;
 }
 
 .save-msg {
@@ -151,10 +95,6 @@ body {
 }
 
 /* 🌸 Address Input */
-.address-input {
-    margin-top: 25px;
-}
-
 .address-input label {
     font-weight: 600;
     color: #333;
@@ -172,30 +112,6 @@ body {
     outline: none;
 }
 
-/* 🌸 Buttons */
-.action-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.btn {
-    background: #ff6f61;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #ff3b2f;
-}
-
 /* 🌸 UPI Section */
 .upi-section {
     text-align: center;
@@ -210,27 +126,100 @@ body {
     margin-bottom: 10px;
 }
 
-.upi-id {
-    font-size: 1rem;
-    color: #555;
-}
-
 .upi-section img {
     width: 160px;
     margin-top: 10px;
     border-radius: 10px;
 }
 
-/* 🌸 Footer */
-footer {
-    text-align: center;
-    color: #888;
-    font-size: 0.9rem;
-    margin-top: 40px;
+/* 🛒 Fixed Action Buttons (Bottom of Checkout Page) */
+.action-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fffaf7;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 20px;
+    z-index: 100;
 }
 
-/* 🌸 Responsive */
+/* 🩷 Button Base */
+.btn {
+    flex: 1;
+    text-align: center;
+    background: #ff6f61;
+    color: white;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(255, 111, 97, 0.4);
+}
+
+.btn:hover {
+    background: #ff3b2f;
+    box-shadow: 0 6px 14px rgba(255, 59, 47, 0.5);
+}
+
+/* 💚 WhatsApp Button */
+#confirmWhatsApp {
+    background: #25d366;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+}
+
+#confirmWhatsApp:hover {
+    background: #1ebd5a;
+    box-shadow: 0 6px 14px rgba(30, 189, 90, 0.4);
+}
+
+/* 🧹 Floating Buttons (on product page) */
+#goToCheckout,
+#clearCart {
+    position: fixed;
+    right: 20px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+#goToCheckout {
+    bottom: 20px;
+    background: #d05d8b;
+    padding: 15px 35px;
+    border-radius: 50px;
+}
+
+#goToCheckout:hover {
+    background: #b84c76;
+    transform: scale(1.05);
+}
+
+#clearCart {
+    bottom: 80px;
+    background: #666;
+    padding: 12px 28px;
+    border-radius: 50px;
+}
+
+#clearCart:hover {
+    background: #444;
+    transform: scale(1.05);
+}
+
+/* 📱 Responsive Layout */
 @media (max-width: 600px) {
+
     .checkout-item {
         flex-direction: column;
         align-items: flex-start;
@@ -243,9 +232,29 @@ footer {
 
     .action-buttons {
         flex-direction: column;
+        padding: 12px;
     }
 
     .btn {
+        font-size: 1rem;
+        padding: 14px;
         width: 100%;
+    }
+
+    #clearCart,
+    #goToCheckout {
+        width: calc(100% - 40px);
+        right: 20px;
+        left: 20px;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    #clearCart {
+        bottom: 80px;
+    }
+
+    #goToCheckout {
+        bottom: 20px;
     }
 }
