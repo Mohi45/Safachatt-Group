@@ -25,7 +25,6 @@
 
     <div class="checkout-container">
         <h2 class="checkout-title">Checkout Summary</h2>
-        <div class="order-id">Order ID: <span id="orderId"></span></div>
 
         <div class="checkout-items"></div>
 
@@ -62,82 +61,123 @@
             const savedEl = document.getElementById("totalSaved");
             const confirmBtn = document.getElementById("confirmWhatsApp");
             const continueBtn = document.getElementById("continueShopping");
-            const orderIdEl = document.getElementById("orderId");
 
-            // 🆔 Auto-generate Order ID
-            const orderId = "ORD" + Date.now().toString().slice(-6);
-            orderIdEl.textContent = orderId;
+            function renderCart() {
+                const cart = JSON.parse(localStorage.getItem("cartData")) || [];
+                let total = 0;
+                let totalSaved = 0;
+                container.innerHTML = "";
 
-            // 🛒 Load cart
-            const cart = JSON.parse(localStorage.getItem("cartData")) || [];
-            let total = 0;
-            let totalSaved = 0;
+                if (cart.length === 0) {
+                    container.innerHTML = "<p>No items in cart. Go back and select products.</p>";
+                    confirmBtn.disabled = true;
+                    totalEl.textContent = "₹0";
+                    savedEl.textContent = "₹0";
+                    return;
+                }
 
-            if (cart.length === 0) {
-                container.innerHTML = "<p>No items in cart. Go back and select products.</p>";
-                confirmBtn.disabled = true;
-                return;
+                confirmBtn.disabled = false;
+
+                cart.forEach((item, i) => {
+                    const originalPrice = item.price;
+                    const discount = item.discount || 0;
+                    const discountedPrice = item.discountedPrice
+                        ? item.discountedPrice
+                        : (originalPrice * (1 - discount / 100)).toFixed(0);
+                    const subtotal = discountedPrice * item.qty;
+                    const savedAmount = (originalPrice - discountedPrice) * item.qty;
+
+                    total += subtotal;
+                    totalSaved += savedAmount;
+
+                    container.innerHTML += `
+                <div class="checkout-item">
+                    <img src="${item.img}" alt="${item.name}">
+                    <div>
+                        <h3>${item.name}</h3>
+                        <p>Qty: ${item.qty}</p>
+                        <p>₹${discountedPrice} <del style="color:gray;">₹${originalPrice}</del> 
+                        <span style="color:green;">(${discount}% OFF)</span></p>
+                        <p class="save-msg">You save ₹${savedAmount.toFixed(0)}!</p>
+                    </div>
+                    <div class="item-total">₹${subtotal.toFixed(0)}</div>
+                </div>
+            `;
+                });
+
+                totalEl.textContent = `₹${total.toFixed(0)}`;
+                savedEl.textContent = `₹${totalSaved.toFixed(0)}`;
             }
 
-            // 🧮 Populate items
-            cart.forEach(item => {
-                const originalPrice = item.price;
-                const discount = item.discount || 0;
-                const discountedPrice = (originalPrice * (1 - discount / 100)).toFixed(0);
-                const subtotal = discountedPrice * item.qty;
-                const savedAmount = (originalPrice - discountedPrice) * item.qty;
+            // Initial render
+            renderCart();
 
-                total += subtotal;
-                totalSaved += savedAmount;
-
-                container.innerHTML += `
-          <div class="checkout-item">
-            <img src="${item.img}" alt="${item.name}">
-            <div>
-              <h3>${item.name}</h3>
-              <p>Qty: ${item.qty}</p>
-              <p>
-                ₹${discountedPrice} 
-                ${discount > 0 ? `<del style="color:gray;">₹${originalPrice}</del> <span style="color:green;">(${discount}% OFF)</span>` : ""}
-              </p>
-              ${discount > 0 ? `<p class="save-msg">You save ₹${savedAmount.toFixed(0)}!</p>` : ""}
-            </div>
-            <div class="item-total">₹${subtotal.toFixed(0)}</div>
-          </div>
-        `;
+            // Listen for storage updates (same tab or other tabs)
+            window.addEventListener("storage", (event) => {
+                if (!event.key || event.key === "cartData") {
+                    renderCart();
+                }
             });
 
-            totalEl.textContent = `₹${total.toFixed(0)}`;
-            savedEl.textContent = `₹${totalSaved.toFixed(0)}`;
-
-            // 🔁 Continue Shopping (keep cart data)
             continueBtn.addEventListener("click", () => {
                 window.location.href = "index.html";
             });
 
-            // ✅ Place Order via WhatsApp
             confirmBtn.addEventListener("click", () => {
+                const cart = JSON.parse(localStorage.getItem("cartData")) || [];
+                if (cart.length === 0) {
+                    alert("Your cart is empty.");
+                    return;
+                }
+
                 const address = document.getElementById("checkoutAddress").value.trim();
                 if (!address) {
                     alert("Please enter your delivery address.");
                     return;
                 }
 
-                const phoneNumber = "919625290733";
-                let message = `🧾 *Order Confirmation*%0AOrder ID: ${orderId}%0A%0A`;
+                const total = cart.reduce((sum, item) => {
+                    const price = item.discountedPrice ? item.discountedPrice : (item.price * (1 - item.discount / 100)).toFixed(0);
+                    return sum + price * item.qty;
+                }, 0);
 
-                cart.forEach(item => {
-                    const price = (item.price * (1 - (item.discount || 0) / 100)).toFixed(0);
-                    message += `${item.qty} × ${item.name} = ₹${(item.qty * price).toFixed(0)}%0A`;
+                const totalSaved = cart.reduce((sum, item) => {
+                    const price = item.discountedPrice ? item.discountedPrice : (item.price * (1 - item.discount / 100)).toFixed(0);
+                    return sum + (item.price - price) * item.qty;
+                }, 0);
+
+                const orderId = "JCH" + Math.floor(Math.random() * 90000 + 10000);
+                const phoneNumber = "919625290733";
+
+                let message = `🛍️ *New Order Received!*%0A%0A🆔 *Order ID:* ${orderId}%0A%0A✨ *Order Summary:*%0A`;
+
+                cart.forEach((item, i) => {
+                    const price = item.discountedPrice ? item.discountedPrice : (item.price * (1 - item.discount / 100)).toFixed(0);
+                    const saved = ((item.price - price) * item.qty).toFixed(0);
+                    const emojis = ["🧴", "💅", "🌸", "🫧", "🪞", "🧼", "💖"];
+                    const emoji = emojis[i % emojis.length];
+                    const line = `${emoji} *${item.name}*%0A   • Qty: ${item.qty} × ₹${price}%0A   • You saved ₹${saved}%0A`;
+                    message += encodeURIComponent(line + "%0A");
                 });
 
-                message += `%0A💰 Total: ₹${total.toFixed(0)}%0A🎉 You Saved: ₹${totalSaved.toFixed(0)}%0A%0A📍 Address: ${encodeURIComponent(address)}%0A%0A💳 Payment via UPI: 9625290733@ybl%0A%0A📸 *Please share the payment screenshot as well.*%0A%0AThank you for shopping with *Jyoti’s Cosmetic House!* 🌸`;
+                const footer = `
+💰 *Total:* ₹${total.toFixed(0)}
+🎉 *You Saved:* ₹${totalSaved.toFixed(0)}
 
+📍 *Delivery Address:* ${address}
+
+💳 *Payment via UPI:* 9625290733@ybl
+📸 *Please share the payment screenshot as well.*
+
+Thank you for shopping with *Jyoti’s Cosmetic House!* 💖🌷
+        `;
+                message += encodeURIComponent(footer);
 
                 window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
             });
         });
     </script>
+
 </body>
 
 </html>

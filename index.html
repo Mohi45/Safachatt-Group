@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="css/testimonials.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/checkout.css">
-
 </head>
 
 <body>
@@ -22,7 +21,10 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">Safachatt Group</div>
-        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <div style="position: relative;">
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <span class="cart-counter" id="cartCounter">0</span>
+        </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="makeover.html">Makeover</a></li>
@@ -33,7 +35,6 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
-
 
     <!-- Banner Slider -->
     <div class="banner-slider" id="banner">
@@ -48,13 +49,6 @@
     </header>
 
     <div class="container">
-        <!-- Gallery -->
-        <h2 id="gallery">Featured Products</h2>
-        <div class="gallery">
-            <img src="img/offers/face-cream.png" alt="Face Cream">
-            <img src="img/offers/lipstic.jpg" alt="Lipstick">
-            <img src="img/offers/sampoo.png" alt="Shampoo">
-        </div>
 
         <!-- Categories -->
         <h2 id="products">Our Products</h2>
@@ -68,11 +62,13 @@
         </div>
 
         <!-- Products Grid -->
-        <div class="products">
+        <div class="products" id="productsGrid">
             <!-- Products will be dynamically loaded here -->
         </div>
 
-        <button class="checkout-btn" id="goToCheckout">Go to Checkout</button>
+        <!-- Floating Buttons -->
+        <button id="clearCart">🧹 Clear Cart</button>
+        <button id="goToCheckout">🛍️ Go to Checkout</button>
 
         <!-- Testimonials -->
         <div class="testimonials" id="testimonials">
@@ -96,31 +92,109 @@
         <div class="footer-container">
             <div class="footer-item">
                 <h3>Contact Us</h3>
-                <p><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://wa.me/919625290733"
-                        target="_blank">+91-9625290733</a></p>
-                <p><i class="fas fa-envelope"></i> Email: <a
-                        href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a></p>
-                <p><i class="fas fa-map-marker-alt"></i> Address: C8/17 Block C, Govind Puram, Ghaziabad 201013</p>
+                <p><i class="fab fa-whatsapp"></i> WhatsApp:
+                    <a href="https://wa.me/919625290733" target="_blank">+91-9625290733</a>
+                </p>
+                <p><i class="fas fa-envelope"></i> Email:
+                    <a href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a>
+                </p>
+                <p><i class="fas fa-map-marker-alt"></i> Address:
+                    C8/17 Block C, Govind Puram, Ghaziabad 201013
+                </p>
             </div>
         </div>
         <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
     </footer>
 
     <script>
+        // Navbar toggle
         const menuToggle = document.querySelector(".menu-toggle");
         const navLinks = document.querySelector(".nav-links");
+        menuToggle.addEventListener("click", () => navLinks.classList.toggle("show"));
 
-        menuToggle.addEventListener("click", () => {
-            navLinks.classList.toggle("show");
+        // Floating buttons & cart counter
+        const goToCheckout = document.getElementById("goToCheckout");
+        const clearCart = document.getElementById("clearCart");
+        const cartCounter = document.getElementById("cartCounter");
+
+        function updateCartButtons() {
+            const cart = JSON.parse(localStorage.getItem("cartData")) || [];
+            if (cart.length === 0) {
+                goToCheckout.style.display = "none";
+                clearCart.style.display = "none";
+            } else {
+                goToCheckout.style.display = "inline-block";
+                clearCart.style.display = "inline-block";
+            }
+            cartCounter.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+        }
+
+        updateCartButtons();
+
+        goToCheckout.addEventListener("click", () => window.location.href = "checkout.html");
+        clearCart.addEventListener("click", () => {
+            if (confirm("Are you sure you want to clear all items?")) {
+                localStorage.removeItem("cartData");
+                updateCartButtons();
+            }
         });
+
+        window.addEventListener("storage", () => updateCartButtons());
+
+        // Fetch products from JSON
+        const productsGrid = document.getElementById("productsGrid");
+        let products = [];
+
+        fetch("products.json")
+            .then(res => res.json())
+            .then(data => {
+                products = data;
+                renderProducts();
+            })
+            .catch(err => console.error("Error loading products.json:", err));
+
+        function renderProducts(filter = "all") {
+            productsGrid.innerHTML = "";
+            const filtered = filter === "all" ? products : products.filter(p => p.category === filter);
+            filtered.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.innerHTML = `
+                    <img src="${product.img}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>₹${(product.price * (1 - product.discount / 100)).toFixed(0)} <del>₹${product.price}</del> <span style="color:green;">(${product.discount}% OFF)</span></p>
+                    <button onclick="addToCart(${product.id})">Add to Cart</button>
+                `;
+                productsGrid.appendChild(card);
+            });
+        }
+
+        // Category filtering
+        document.querySelectorAll(".category-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                renderProducts(btn.dataset.category);
+            });
+        });
+
+        // Add to Cart function
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+            const index = cart.findIndex(item => item.id === product.id);
+            if (index > -1) {
+                cart[index].qty += 1;
+            } else {
+                product.qty = 1;
+                cart.push({ ...product });
+            }
+            localStorage.setItem("cartData", JSON.stringify(cart));
+            window.dispatchEvent(new Event('storage')); // trigger immediate cart update
+            alert(`${product.name} added to cart!`);
+        }
     </script>
 
-
-    <script src="Js/script.js"></script>
-
-
 </body>
-
-
 
 </html>
