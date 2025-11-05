@@ -8,16 +8,15 @@
     <link rel="stylesheet" href="css/makeover.css" />
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/navbar.css">
 </head>
 
 <body>
-    <!-- Navbar -->
+    <!-- Navigation -->
     <nav class="navbar">
-        <div class="logo">
-            <img src="/img/group.png" alt="Jyoti's Makeover Logo" class="logo-img">
-            Safachatt Group
-        </div>
-        <div class="name">Jyoti's Makeover</div>
+        <div class="logo">Jyoti's Makeover</div>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="makeover.html" class="active">Makeover</a></li>
@@ -25,6 +24,18 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
+    <!-- 🌸 Mobile Tip Message -->
+    <div class="mobile-tip">
+        <div class="tip-icon">💡</div>
+        <div class="tip-content">
+            <strong>Tip:</strong> For the best viewing experience, switch to <strong>Desktop Site</strong> mode.
+            <ul>
+                <li>👉 Tap <strong>⋮ (three dots)</strong> on the top-right corner of your browser.</li>
+                <li>👉 Select <strong>“Desktop site”</strong> from the menu.</li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Makeover Section -->
     <section class="makeover-section">
         <h2 class="section-title">Our Beauty Services</h2>
@@ -69,10 +80,11 @@
                         <label>Service Type *</label>
                         <select id="service" required>
                             <option value="">Select Service</option>
-                            <option>Bridal Makeup</option>
-                            <option>Party Makeup</option>
-                            <option>Hair Styling</option>
-                            <option>Pre-Wedding Shoot Look</option>
+                            <option>Facials</option>
+                            <option>Waxing</option>
+                            <option>Bleach</option>
+                            <option>Manicure</option>
+                            <option>Padicure</option>
                         </select>
                     </div>
                 </div>
@@ -114,6 +126,14 @@
         </div>
         <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
     </footer>
+    <script>
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.querySelector(".nav-links");
+
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("show");
+        });
+    </script>
 
     <script>
 
@@ -133,7 +153,7 @@
             bleach: {
                 title: "Bleach",
                 desc: "Instant brightness and tan removal with premium bleach treatments.",
-                prices: ["Fruit Bleach – ₹149", "Gold Bleach – ₹159", "Diamond Bleach – ₹199", "O3 Bleach – 249"],
+                prices: ["Fruit Bleach – ₹149", "Gold Bleach – ₹159", "Diamond Bleach – ₹199", "O3 Bleach – 249", "Threading – ₹30"],
                 img: "img/services/bleach.jpeg"
             },
             manicure: {

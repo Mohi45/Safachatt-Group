@@ -41,97 +41,211 @@
     color: #d05d8b;
 }
 
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+/* 🌸 Global Styles */
+body {
+    background: #fffaf7;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
 }
 
-.cart-item img {
-    width: 60px;
-    height: 60px;
+/* 🌸 Checkout Container */
+.checkout-container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: #fff7f4;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+/* 🌸 Title and Order ID */
+.checkout-title {
+    text-align: center;
+    color: #ff6f61;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.order-id {
+    text-align: right;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* 🌸 Cart Items */
+.checkout-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffece5;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+.checkout-item img {
+    width: 80px;
+    height: 80px;
     border-radius: 10px;
     object-fit: cover;
     margin-right: 15px;
 }
 
-.cart-item-details {
+.checkout-item div {
     flex: 1;
+    margin-left: 10px;
 }
 
-.cart-item-details h4 {
-    margin: 0;
-    font-size: 16px;
+.checkout-item h3 {
+    margin: 5px 0;
+    color: #333;
 }
 
-.cart-item-details span {
-    color: #666;
-    font-size: 14px;
+.checkout-item p {
+    margin: 2px 0;
+    font-size: 0.9rem;
 }
 
-.cart-item-price {
-    font-weight: bold;
-    color: #444;
+/* 🌸 Pricing Info */
+.item-total {
+    font-weight: 600;
+    color: #ff6f61;
+    text-align: right;
+    min-width: 80px;
+}
+
+.old-price {
+    font-size: 0.85rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.save-msg {
+    font-size: 0.9em;
+    color: #009688;
+    font-weight: 600;
+}
+
+/* 🌸 Summary Section */
+.checkout-summary {
+    margin-top: 20px;
+    border-top: 2px solid #eee;
+    padding-top: 15px;
+    text-align: right;
 }
 
 .total-amount {
-    text-align: right;
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 15px;
-    color: #222;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ff3b2f;
 }
 
-.upi-section {
+#totalSaved {
+    color: #2e7d32;
+    font-weight: 700;
+}
+
+/* 🌸 Address Input */
+.address-input {
     margin-top: 25px;
-    text-align: center;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
 }
 
-.upi-section img {
-    width: 150px;
-    margin-top: 10px;
-}
-
-.upi-id {
-    font-size: 18px;
-    font-weight: 500;
+.address-input label {
+    font-weight: 600;
     color: #333;
-    margin-top: 10px;
+    display: block;
+    margin-bottom: 6px;
 }
 
-.address-input textarea {
+#checkoutAddress {
     width: 100%;
+    border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px;
-    font-size: 15px;
-    border: 1px solid #ccc;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
 }
 
-.whatsapp-btn {
-    display: block;
-    width: 100%;
-    margin-top: 25px;
-    background: #25D366;
-    color: #fff;
+/* 🌸 Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn {
+    background: #ff6f61;
+    color: white;
+    padding: 12px 25px;
     border: none;
-    padding: 15px;
-    font-size: 18px;
     border-radius: 10px;
+    font-size: 1rem;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.whatsapp-btn:hover {
-    background: #20b65b;
+.btn:hover {
+    background: #ff3b2f;
 }
 
+/* 🌸 UPI Section */
+.upi-section {
+    text-align: center;
+    margin-top: 25px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.upi-section h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.upi-id {
+    font-size: 1rem;
+    color: #555;
+}
+
+.upi-section img {
+    width: 160px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/* 🌸 Footer */
+footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 40px;
+}
+
+/* 🌸 Responsive */
 @media (max-width: 600px) {
-    .whatsapp-btn {
-        font-size: 1em;
-        padding: 10px 15px;
+    .checkout-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item-total {
+        text-align: left;
+        margin-top: 5px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
     }
 }

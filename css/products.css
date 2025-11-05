@@ -1,3 +1,4 @@
+/* 🔹 Categories Section */
 .categories {
     display: flex;
     justify-content: center;
@@ -22,7 +23,7 @@
     background: #ff6f61;
 }
 
-/* Products Grid */
+/* 🔹 Products Grid */
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -35,7 +36,7 @@
     text-align: center;
 }
 
-/* Product Card */
+/* 🔹 Product Card */
 .product {
     background: #ffece5;
     border-radius: 15px;
@@ -52,13 +53,17 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Image Zoom Effect */
+/* 🔹 Image Zoom Effect */
 .product img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 220px;
+    /* fixed height for uniformity */
+    object-fit: contain;
+    /* keeps the full image visible without distortion */
+    background-color: #fff;
+    /* adds a clean backdrop */
     border-radius: 12px;
-    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    padding: 8px;
 }
 
 .product:hover img {
@@ -66,7 +71,7 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Product Info */
+/* 🔹 Product Info */
 .product h3 {
     margin: 8px 0 4px;
     font-size: 1rem;
@@ -79,13 +84,38 @@
     color: #666;
 }
 
+/* 💰 Product Price Styling */
 .product p {
-    font-weight: bold;
-    color: #ff3b2f;
-    margin: 6px 0;
+    font-size: 1rem;
+    margin: 8px 0;
+    font-weight: 600;
+    color: #222;
 }
 
-/* Quantity Selector */
+.product .discounted {
+    color: #e91e63;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+.product .old-price {
+    color: #777;
+    text-decoration: line-through;
+    margin: 0 5px;
+    font-weight: 400;
+}
+
+.product .offer-percent {
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: #e8f5e9;
+    padding: 3px 6px;
+    border-radius: 6px;
+    margin-left: 5px;
+}
+
+/* 🔹 Quantity Selector */
 .quantity-selector {
     display: flex;
     align-items: center;
@@ -119,7 +149,80 @@
     padding: 5px;
 }
 
-/* Responsive Design */
+/* 🔹 Lightbox Overlay */
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    animation: zoomIn 0.3s ease;
+}
+
+.lightbox-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* 🔹 Close Button */
+.lightbox-close {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #fff;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 30px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    transition: background 0.2s ease;
+}
+
+.lightbox-close:hover {
+    background: #ff5e8a;
+    color: white;
+}
+
+/* ✨ Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 📱 Responsive Design */
 @media (max-width: 600px) {
     .products {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -147,5 +250,34 @@
         width: 28px;
         height: 28px;
         font-size: 1em;
+    }
+}
+
+/* 🔖 Dynamic SALE Ribbon */
+.product .sale-badge {
+    position: absolute;
+    top: 10px;
+    left: -5px;
+    background: linear-gradient(135deg, #ff3b2f, #ff6f61);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: popIn 0.4s ease;
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
 }

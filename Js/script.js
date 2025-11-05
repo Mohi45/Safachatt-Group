@@ -1,4 +1,4 @@
-// Banner slider
+// 🖼️ Banner Slider
 let bannerIndex = 0;
 const banners = document.querySelectorAll('.banner-slider img');
 
@@ -9,40 +9,102 @@ function showBanner() {
 }
 setInterval(showBanner, 4000);
 
-// Load products
+// 🧾 Load Products
 async function loadProducts(category = "all") {
     const container = document.querySelector(".products");
     container.innerHTML = "";
 
     try {
-        // ✅ Use absolute path for GitHub Pages
         const res = await fetch("./products.json");
         const productsData = await res.json();
 
+        // 🛒 Load saved cart (if any)
+        const savedCart = JSON.parse(localStorage.getItem("cartData")) || [];
+
         productsData.forEach(p => {
             if (category === "all" || p.category === category) {
+                let discountedPrice = p.price;
+                let discountPercent = 0;
+
+                if (p.discount && p.discount > 0) {
+                    discountedPrice = (p.price * (1 - p.discount / 100)).toFixed(0);
+                    discountPercent = p.discount;
+                }
+
+                // Check if product already in cart (to restore quantity)
+                const cartItem = savedCart.find(c => c.name === p.name);
+                const currentQty = cartItem ? cartItem.qty : 0;
+
                 container.innerHTML += `
-                    <div class="product" data-category="${p.category}" data-price="${p.price}">
-                        <img src="${p.img}" alt="${p.name}">
-                        <h3>${p.name}</h3>
-                        <span class="desc">${p.desc}</span>
-                        <p>₹${p.price}</p>
-                        <div class="quantity-selector">
-                            <button class="minus">-</button>
-                            <input type="text" value="0" readonly>
-                            <button class="plus">+</button>
-                        </div>
+                <div class="product" 
+                     data-category="${p.category}" 
+                     data-price="${p.price}" 
+                     data-discount="${p.discount || 0}" 
+                     style="position: relative;">
+                    ${discountPercent > 0 ? `<span class="sale-badge">${discountPercent}% OFF</span>` : ""}
+                    <img src="${p.img}" alt="${p.name}" class="product-img">
+                    <h3>${p.name}</h3>
+                    <span class="desc">${p.desc}</span>
+                    <p>
+                        ${discountPercent > 0
+                        ? `<span class="discounted">₹${discountedPrice}</span>
+                               <del class="old-price">₹${p.price}</del>`
+                        : `₹${p.price}`
+                    }
+                    </p>
+                    <div class="quantity-selector">
+                        <button class="minus">-</button>
+                        <input type="text" value="${currentQty}" readonly>
+                        <button class="plus">+</button>
                     </div>
+                </div>
                 `;
             }
         });
 
-        // Quantity buttons
+        // 🖼️ Image lightbox
+        document.querySelectorAll(".product-img").forEach(img => {
+            img.addEventListener("click", () => openLightbox(img.src, img.alt));
+        });
+
+        // ➕ Quantity controls
         document.querySelectorAll(".quantity-selector").forEach(selector => {
             const input = selector.querySelector("input");
-            selector.querySelector(".plus").addEventListener("click", () => input.value = parseInt(input.value) + 1);
-            selector.querySelector(".minus").addEventListener("click", () => input.value = Math.max(0, parseInt(input.value) - 1));
+            const plus = selector.querySelector(".plus");
+            const minus = selector.querySelector(".minus");
+
+            plus.addEventListener("click", () => updateQty(input, 1));
+            minus.addEventListener("click", () => updateQty(input, -1));
         });
+
+        // ✅ Update cart in localStorage when qty changes
+        function updateQty(input, change) {
+            let qty = parseInt(input.value);
+            qty = Math.max(0, qty + change);
+            input.value = qty;
+
+            const product = input.closest(".product");
+            const name = product.querySelector("h3").textContent;
+            const price = parseFloat(product.dataset.price);
+            const discount = parseFloat(product.dataset.discount);
+            const img = product.querySelector("img").src;
+            const discountedPrice = (price * (1 - discount / 100)).toFixed(0);
+
+            let cart = JSON.parse(localStorage.getItem("cartData")) || [];
+            const existing = cart.find(item => item.name === name);
+
+            if (qty > 0) {
+                if (existing) {
+                    existing.qty = qty;
+                } else {
+                    cart.push({ name, price, qty, img, discount, discountedPrice });
+                }
+            } else {
+                cart = cart.filter(item => item.name !== name);
+            }
+
+            localStorage.setItem("cartData", JSON.stringify(cart));
+        }
 
     } catch (err) {
         console.error("Error loading products:", err);
@@ -50,7 +112,26 @@ async function loadProducts(category = "all") {
     }
 }
 
-// Category filters
+// 💡 Lightbox Function
+function openLightbox(src, alt) {
+    document.querySelector(".lightbox-overlay")?.remove();
+
+    const overlay = document.createElement("div");
+    overlay.className = "lightbox-overlay";
+    overlay.innerHTML = `
+        <div class="lightbox-content">
+            <span class="lightbox-close">&times;</span>
+            <img src="${src}" alt="${alt}">
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.querySelector(".lightbox-close").addEventListener("click", () => overlay.remove());
+    overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") overlay.remove(); }, { once: true });
+}
+
+// 🏷️ Category Filters
 document.querySelectorAll(".category-btn").forEach(btn => {
     btn.addEventListener("click", () => {
         document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
@@ -59,41 +140,19 @@ document.querySelectorAll(".category-btn").forEach(btn => {
     });
 });
 
-// Checkout Button Logic
+// 🛒 Checkout Button Logic
 document.addEventListener("DOMContentLoaded", () => {
     loadProducts();
 
     const checkoutButton = document.getElementById("goToCheckout");
     if (checkoutButton) {
         checkoutButton.addEventListener("click", () => {
-            const inputs = document.querySelectorAll(".product input");
-            let cart = [];
-
-            inputs.forEach(input => {
-                const qty = parseInt(input.value);
-                if (qty > 0) {
-                    const product = input.closest(".product");
-                    const name = product.querySelector("h3").textContent;
-                    const price = parseFloat(product.dataset.price);
-                    const img = product.querySelector("img").src;
-                    cart.push({ name, price, qty, img });
-                }
-            });
-
+            const cart = JSON.parse(localStorage.getItem("cartData")) || [];
             if (cart.length === 0) {
                 alert("Please select at least one product to checkout.");
                 return;
             }
-
-            // Save cart to localStorage for checkout page
-            localStorage.setItem("cartData", JSON.stringify(cart));
-
-            // Navigate to checkout page
             window.location.href = "checkout.html";
         });
-    } else {
-        console.error("Checkout button not found!");
     }
 });
-
-
