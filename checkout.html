@@ -13,9 +13,10 @@
 </head>
 
 <body>
+
     <nav class="navbar">
         <div class="logo">Safachatt Group</div>
-        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <button class="menu-toggle">☰</button>
         <ul class="nav-links">
             <li><a href="index.html#home">Home</a></li>
             <li><a href="index.html#products">Products</a></li>
@@ -25,156 +26,220 @@
 
     <div class="checkout-container">
         <h2 class="checkout-title">Checkout Summary</h2>
-
         <div class="checkout-items"></div>
 
         <div class="checkout-summary">
             <p><strong>Total Amount:</strong> <span id="totalAmount">₹0</span></p>
-            <p style="color: green; font-weight: 600;">🎉 You saved <span id="totalSaved">₹0</span> on this order!</p>
+            <p style="color: green; font-weight: 600;">🎉 You saved <span id="totalSaved">₹0</span></p>
         </div>
 
         <div class="upi-section">
             <h3>Pay via UPI</h3>
             <p>UPI ID: <strong>9625290733@ybl</strong></p>
-            <img src="img/upi-qr.png" alt="UPI QR Code" style="max-width:160px;">
+            <img src="img/upi-qr.png" alt="UPI QR" style="max-width:160px;">
         </div>
 
-        <label for="checkoutAddress">Enter Delivery Address:</label>
-        <textarea id="checkoutAddress" placeholder="Type your full address here" rows="3" required></textarea>
+        <label for="checkoutAddress">Delivery Address</label>
+        <textarea id="checkoutAddress" rows="3" placeholder="Enter full address"></textarea>
+
+        <label for="customerName">Name</label>
+        <input type="text" id="customerName" placeholder="Enter your name">
+
+        <label for="customerPhone">Phone</label>
+        <input type="text" id="customerPhone" placeholder="Enter phone number">
 
         <div class="action-buttons">
             <button class="btn" id="continueShopping">← Continue Shopping</button>
-            <button class="btn" id="confirmWhatsApp">Place Order via WhatsApp</button>
+            <button class="btn" id="confirmOrder">Place Order</button>
         </div>
     </div>
 
     <footer>
-        <p style="text-align:center; margin-top:40px; color:#888;">
-            © 2025 Jyoti's Cosmetic House. All Rights Reserved.
-        </p>
+        <p style="text-align:center;color:#888;">© 2025 Jyoti's Cosmetic House</p>
     </footer>
+
+    <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const container = document.querySelector(".checkout-items");
             const totalEl = document.getElementById("totalAmount");
             const savedEl = document.getElementById("totalSaved");
-            const confirmBtn = document.getElementById("confirmWhatsApp");
-            const continueBtn = document.getElementById("continueShopping");
+            const confirmBtn = document.getElementById("confirmOrder");
 
             function renderCart() {
                 const cart = JSON.parse(localStorage.getItem("cartData")) || [];
-                let total = 0;
-                let totalSaved = 0;
+                let total = 0, saved = 0;
                 container.innerHTML = "";
 
-                if (cart.length === 0) {
-                    container.innerHTML = "<p>No items in cart. Go back and select products.</p>";
+                if (!cart.length) {
+                    container.innerHTML = "<p>No items in cart.</p>";
                     confirmBtn.disabled = true;
-                    totalEl.textContent = "₹0";
-                    savedEl.textContent = "₹0";
                     return;
                 }
 
                 confirmBtn.disabled = false;
 
-                cart.forEach((item, i) => {
-                    const originalPrice = item.price;
-                    const discount = item.discount || 0;
-                    const discountedPrice = item.discountedPrice
-                        ? item.discountedPrice
-                        : (originalPrice * (1 - discount / 100)).toFixed(0);
-                    const subtotal = discountedPrice * item.qty;
-                    const savedAmount = (originalPrice - discountedPrice) * item.qty;
+                cart.forEach(item => {
+                    const price = (item.price * (1 - item.discount / 100)).toFixed(0);
+                    const subtotal = price * item.qty;
+                    const save = (item.price - price) * item.qty;
 
                     total += subtotal;
-                    totalSaved += savedAmount;
+                    saved += save;
 
                     container.innerHTML += `
                 <div class="checkout-item">
-                    <img src="${item.img}" alt="${item.name}">
+                    <img src="${item.img}">
                     <div>
                         <h3>${item.name}</h3>
                         <p>Qty: ${item.qty}</p>
-                        <p>₹${discountedPrice} <del style="color:gray;">₹${originalPrice}</del> 
-                        <span style="color:green;">(${discount}% OFF)</span></p>
-                        <p class="save-msg">You save ₹${savedAmount.toFixed(0)}!</p>
+                        <p>₹${price} <del>₹${item.price}</del></p>
+                        <p class="save-msg">You save ₹${save}</p>
                     </div>
-                    <div class="item-total">₹${subtotal.toFixed(0)}</div>
+                    <div class="item-total">₹${subtotal}</div>
                 </div>
             `;
                 });
 
-                totalEl.textContent = `₹${total.toFixed(0)}`;
-                savedEl.textContent = `₹${totalSaved.toFixed(0)}`;
+                totalEl.textContent = "₹" + total;
+                savedEl.textContent = "₹" + saved;
             }
 
-            // Initial render
             renderCart();
 
-            // Listen for storage updates (same tab or other tabs)
-            window.addEventListener("storage", (event) => {
-                if (!event.key || event.key === "cartData") {
-                    renderCart();
-                }
-            });
-
-            continueBtn.addEventListener("click", () => {
+            document.getElementById("continueShopping").onclick = () => {
                 window.location.href = "index.html";
-            });
+            };
 
-            confirmBtn.addEventListener("click", () => {
+            confirmBtn.onclick = async () => {
                 const cart = JSON.parse(localStorage.getItem("cartData")) || [];
-                if (cart.length === 0) {
-                    alert("Your cart is empty.");
-                    return;
-                }
-
                 const address = document.getElementById("checkoutAddress").value.trim();
-                if (!address) {
-                    alert("Please enter your delivery address.");
+                const customerName = document.getElementById("customerName").value.trim();
+                const customerPhone = document.getElementById("customerPhone").value.trim();
+
+                if (!cart.length || !address || !customerName || !customerPhone) {
+                    alert("Please fill all fields and ensure cart is not empty.");
                     return;
                 }
 
-                const total = cart.reduce((sum, item) => {
-                    const price = item.discountedPrice ? item.discountedPrice : (item.price * (1 - item.discount / 100)).toFixed(0);
-                    return sum + price * item.qty;
-                }, 0);
+                const orderId = "JCH" + Math.floor(10000 + Math.random() * 90000);
+                let total = 0, saved = 0;
 
-                const totalSaved = cart.reduce((sum, item) => {
-                    const price = item.discountedPrice ? item.discountedPrice : (item.price * (1 - item.discount / 100)).toFixed(0);
-                    return sum + (item.price - price) * item.qty;
-                }, 0);
-
-                const orderId = "JCH" + Math.floor(Math.random() * 90000 + 10000);
-                const phoneNumber = "919625290733";
-
-                let message = `🛍️ *New Order Received!*%0A%0A🆔 *Order ID:* ${orderId}%0A%0A✨ *Order Summary:*%0A`;
-
-                cart.forEach((item, i) => {
-                    const price = item.discountedPrice ? item.discountedPrice : (item.price * (1 - item.discount / 100)).toFixed(0);
-                    const saved = ((item.price - price) * item.qty).toFixed(0);
-                    const emojis = ["🧴", "💅", "🌸", "🫧", "🪞", "🧼", "💖"];
-                    const emoji = emojis[i % emojis.length];
-                    const line = `${emoji} *${item.name}*%0A   • Qty: ${item.qty} × ₹${price}%0A   • You saved ₹${saved}%0A`;
-                    message += encodeURIComponent(line + "%0A");
+                cart.forEach(i => {
+                    const price = (i.price * (1 - i.discount / 100)).toFixed(0);
+                    total += price * i.qty;
+                    saved += (i.price - price) * i.qty;
                 });
 
-                const footer = `
-💰 *Total:* ₹${total.toFixed(0)}
-🎉 *You Saved:* ₹${totalSaved.toFixed(0)}
+                // 1️⃣ Generate PDF
+                try {
+                    await generatePDF(cart, address, customerName, orderId, total, saved);
+                } catch (err) {
+                    console.error("PDF generation failed:", err);
+                }
 
-📍 *Delivery Address:* ${address}
+                // 2️⃣ Send entire cart to Google Sheet in one row
+                const sheetUrl = "https://script.google.com/macros/s/AKfycbz4KYlHwhGErD4cmBE8rrG1EZnWWLxMwo95y1uxrhY/dev"; // Replace with your Web App URL
+                try {
+                    const response = await fetch(sheetUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            orderId: orderId,
+                            name: customerName,
+                            phone: customerPhone,
+                            address: address,
+                            cart: cart.map(item => ({
+                                name: item.name,
+                                qty: item.qty,
+                                price: (item.price * (1 - item.discount / 100)).toFixed(0)
+                            })),
+                            total: total,
+                            saved: saved,
+                            payment: "UPI"
+                        })
+                    });
 
-💳 *Payment via UPI:* 9625290733@ybl
-📸 *Please share the payment screenshot as well.*
+                    const resText = await response.text();
+                    console.log("Google Sheet response:", resText);
 
-Thank you for shopping with *Jyoti’s Cosmetic House!* 💖🌷
-        `;
-                message += encodeURIComponent(footer);
+                    try {
+                        const resJson = JSON.parse(resText);
+                        if (resJson.status === "success") {
+                            console.log("Order saved successfully!");
+                        } else {
+                            console.error("Order failed:", resJson.message);
+                            alert("Failed to save order in Google Sheet. Check console.");
+                        }
+                    } catch (e) {
+                        console.error("Invalid JSON response:", resText);
+                        alert("Unexpected response from Google Sheet. Check console.");
+                    }
 
-                window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
-            });
+                } catch (err) {
+                    console.error("Failed to send request to Google Sheet:", err);
+                    alert("Could not connect to Google Sheet. Check console.");
+                }
+
+                // 3️⃣ Open WhatsApp with prefilled text
+                const msg = encodeURIComponent(
+                    `🛍️ *New Order*\nOrder ID: ${orderId}\nName: ${customerName}\nPhone: ${customerPhone}\nTotal: ₹${total}\nPlease check attached PDF manually.`
+                );
+                window.open(`https://wa.me/919625290733?text=${msg}`, "_blank");
+
+                // 4️⃣ Clear cart and update UI
+                localStorage.removeItem("cartData");
+                renderCart();
+                alert("Order placed successfully!");
+            };
+
+            async function generatePDF(cart, address, name, orderId, total, saved) {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                let y = 20;
+
+                doc.setFontSize(18);
+                doc.text("Jyoti's Cosmetic House", 105, y, { align: "center" });
+                y += 10;
+
+                doc.setFontSize(12);
+                doc.text(`Order ID: ${orderId}`, 10, y); y += 7;
+                doc.text(`Name: ${name}`, 10, y); y += 7;
+                doc.text(`Address: ${address}`, 10, y); y += 10;
+
+                for (const item of cart) {
+                    let img = null;
+                    try { img = await loadImage(item.img); }
+                    catch (e) { console.warn("Image failed, skipping:", item.img); }
+
+                    const price = (item.price * (1 - item.discount / 100)).toFixed(0);
+
+                    if (img) doc.addImage(img, "JPEG", 10, y, 30, 30);
+                    doc.text(item.name, 45, y + 6);
+                    doc.text(`Qty: ${item.qty}`, 45, y + 14);
+                    doc.text(`Price: ₹${price}`, 45, y + 22);
+                    y += 40;
+
+                    if (y > 260) { doc.addPage(); y = 20; }
+                }
+
+                doc.text(`Total: ₹${total}`, 10, y); y += 6;
+                doc.text(`You Saved: ₹${saved}`, 10, y);
+
+                doc.save(`Order_${orderId}.pdf`);
+            }
+
+            function loadImage(src) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.crossOrigin = "anonymous";
+                    img.onload = () => resolve(img);
+                    img.onerror = () => reject(new Error("Image load failed"));
+                    img.src = src;
+                });
+            }
         });
     </script>
 
