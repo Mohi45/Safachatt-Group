@@ -139,55 +139,20 @@
                 } catch (err) {
                     console.error("PDF generation failed:", err);
                 }
+                // 3️⃣ Open WhatsApp
+                // 3️⃣ Open WhatsApp with full order details
+                let msgText = `🛍️ *New Order*\nOrder ID: ${orderId}\nName: ${customerName}\nPhone: ${customerPhone}\nAddress: ${address}\n\n*Items:*`;
 
-                // 2️⃣ Send entire cart to Google Sheet in one row
-                const sheetUrl = "https://script.google.com/macros/s/AKfycbz4KYlHwhGErD4cmBE8rrG1EZnWWLxMwo95y1uxrhY/dev"; // Replace with your Web App URL
-                try {
-                    const response = await fetch(sheetUrl, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            orderId: orderId,
-                            name: customerName,
-                            phone: customerPhone,
-                            address: address,
-                            cart: cart.map(item => ({
-                                name: item.name,
-                                qty: item.qty,
-                                price: (item.price * (1 - item.discount / 100)).toFixed(0)
-                            })),
-                            total: total,
-                            saved: saved,
-                            payment: "UPI"
-                        })
-                    });
+                cart.forEach(item => {
+                    const price = (item.price * (1 - item.discount / 100)).toFixed(0);
+                    msgText += `\n- ${item.name} x${item.qty} = ₹${price * item.qty}`;
+                });
 
-                    const resText = await response.text();
-                    console.log("Google Sheet response:", resText);
+                msgText += `\n\n*Total: ₹${total}*`;
 
-                    try {
-                        const resJson = JSON.parse(resText);
-                        if (resJson.status === "success") {
-                            console.log("Order saved successfully!");
-                        } else {
-                            console.error("Order failed:", resJson.message);
-                            alert("Failed to save order in Google Sheet. Check console.");
-                        }
-                    } catch (e) {
-                        console.error("Invalid JSON response:", resText);
-                        alert("Unexpected response from Google Sheet. Check console.");
-                    }
+                const whatsappURL = `https://wa.me/919625290733?text=${encodeURIComponent(msgText)}`;
+                window.open(whatsappURL, "_blank");
 
-                } catch (err) {
-                    console.error("Failed to send request to Google Sheet:", err);
-                    alert("Could not connect to Google Sheet. Check console.");
-                }
-
-                // 3️⃣ Open WhatsApp with prefilled text
-                const msg = encodeURIComponent(
-                    `🛍️ *New Order*\nOrder ID: ${orderId}\nName: ${customerName}\nPhone: ${customerPhone}\nTotal: ₹${total}\nPlease check attached PDF manually.`
-                );
-                window.open(`https://wa.me/919625290733?text=${msg}`, "_blank");
 
                 // 4️⃣ Clear cart and update UI
                 localStorage.removeItem("cartData");
