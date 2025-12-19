@@ -23,75 +23,113 @@ h2 {
     padding: 0 15px;
 }
 
-/* 🛒 Floating Go To Checkout Button */
+/* ============================
+   FLOATING CART BUTTONS
+   MOBILE FIRST
+============================ */
+
+/* 🛒 Checkout Button */
 #goToCheckout {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #ff6f61;
-    color: white;
+    bottom: 70px;
+    /* ABOVE clear cart */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 420px;
+    padding: 14px;
+    background: #ff6b4a;
+    color: #fff;
     border: none;
-    border-radius: 50px;
-    padding: 15px 30px;
+    border-radius: 12px;
     font-size: 16px;
     font-weight: 600;
-    box-shadow: 0 6px 20px rgba(255, 111, 97, 0.4);
+    box-shadow: 0 6px 20px rgba(255, 107, 74, 0.4);
     cursor: pointer;
-    z-index: 999;
-    transition: all 0.3s ease;
+    z-index: 9999;
+    transition: all 0.25s ease;
 }
 
 #goToCheckout:hover {
     background: #ff3b2f;
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(255, 59, 47, 0.5);
+    transform: translateX(-50%) scale(1.03);
 }
 
-/* 🧹 Floating Clear Cart Button */
+/* 🧹 Clear Cart Button */
 #clearCart {
     position: fixed;
-    bottom: 80px;
-    /* Slightly above the checkout button */
-    right: 20px;
-    background: #666;
-    color: white;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 420px;
+    padding: 12px;
+    background: #444;
+    color: #fff;
     border: none;
-    border-radius: 50px;
-    padding: 12px 25px;
-    font-size: 15px;
+    border-radius: 12px;
+    font-size: 14px;
     font-weight: 500;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
     cursor: pointer;
-    z-index: 998;
-    transition: all 0.3s ease;
+    z-index: 9998;
+    transition: all 0.25s ease;
 }
 
 #clearCart:hover {
-    background: #444;
-    transform: scale(1.05);
+    background: #222;
+    transform: translateX(-50%) scale(1.03);
 }
 
-/* 📱 Mobile Optimization */
-@media (max-width: 600px) {
-    #clearCart {
-        width: calc(100% - 40px);
-        left: 20px;
-        right: 20px;
-        border-radius: 12px;
-        bottom: 75px;
-        text-align: center;
-    }
-}
+/* ============================
+   DESKTOP OVERRIDE
+============================ */
+@media (min-width: 768px) {
 
-
-/* 📱 Mobile Optimization */
-@media (max-width: 600px) {
     #goToCheckout {
-        width: calc(100% - 40px);
-        left: 20px;
+        bottom: 20px;
         right: 20px;
-        border-radius: 12px;
-        bottom: 15px;
-        text-align: center;
+        left: auto;
+        transform: none;
+        width: auto;
+        padding: 15px 30px;
+        border-radius: 50px;
     }
+
+    #clearCart {
+        bottom: 80px;
+        right: 20px;
+        left: auto;
+        transform: none;
+        width: auto;
+        padding: 12px 25px;
+        border-radius: 50px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    #goToCheckout {
+        bottom: 70px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 90% !important;
+        max-width: 420px;
+    }
+
+    #clearCart {
+        bottom: 15px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 90% !important;
+        max-width: 420px;
+    }
+}
+
+
+/* ============================
+   OPTIONAL: WhatsApp overlap fix
+============================ */
+.whatsapp-float {
+    bottom: 140px;
 }

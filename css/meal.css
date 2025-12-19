@@ -1,0 +1,213 @@
+/* ===================== GLOBAL ===================== */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(#cfdfe3, #eef5f7);
+}
+
+/* ===================== HEADER ===================== */
+.top-bar {
+    background: #1e2b5a;
+    color: white;
+    text-align: center;
+    padding: 18px;
+}
+
+.top-bar span {
+    display: block;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ===================== HERO ===================== */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+/* ===================== CARDS ===================== */
+.cards.modern {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+}
+
+.product-card {
+    background: linear-gradient(160deg, #1e2b5a, #243a78);
+    color: #fff;
+    width: 320px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.35);
+}
+
+/* ===================== IMAGE FIX ===================== */
+.product-image {
+    background: #ffffff;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    /* 🔥 THIS FIXES IMAGE */
+}
+
+/* ===================== CARD CONTENT ===================== */
+.card-header {
+    padding: 0 22px;
+}
+
+.card-header h3 {
+    margin: 10px 0 6px;
+    font-size: 1.2rem;
+}
+
+.badge {
+    font-size: 0.85rem;
+    color: #ffd966;
+}
+
+.desc {
+    padding: 0 22px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 14px 0;
+}
+
+.price {
+    padding: 0 22px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.price span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ===================== BUTTON ===================== */
+.whatsapp-btn {
+    margin: 0 22px 22px;
+    display: block;
+    text-align: center;
+    background: #22c55e;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.whatsapp-btn:hover {
+    background: #16a34a;
+}
+
+/* ===================== FEATURES ===================== */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 30px 20px;
+    font-weight: bold;
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+    background: #1e2b5a;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 40px;
+}
+
+/* ================= CART CONTROLS ================= */
+.cart-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 15px 0;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: #ff6b5f;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.qty {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* ================= ADD TO CART BUTTON ================= */
+.add-cart-btn {
+    width: calc(100% - 44px);
+    margin: 0 22px 22px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #22c55e;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-cart-btn:hover {
+    background: #16a34a;
+}
+
+.checkout-section {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.checkout-section input,
+.checkout-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.checkout-section textarea {
+    resize: none;
+    height: 80px;
+}

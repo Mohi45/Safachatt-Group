@@ -5,11 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Checkout – Jyoti's Cosmetic House</title>
+    <title>Checkout – Safachatt Group</title>
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/checkout.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/navbar.css">
 
     <!-- GOOGLE FONT -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -40,8 +41,6 @@
 
                 <!-- RIGHT -->
                 <div class="checkout-right">
-
-                    <!-- STICKY PAYMENT -->
                     <div class="sticky-payment">
 
                         <div class="checkout-summary">
@@ -54,11 +53,22 @@
                             </div>
                         </div>
 
-                        <div class="upi-section">
+                        <!-- PAYMENT METHOD -->
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <select id="paymentMethod">
+                                <option value="UPI">UPI</option>
+                                <option value="Cash on Delivery">Cash on Delivery</option>
+                            </select>
+                        </div>
+
+                        <!-- UPI SECTION -->
+                        <div class="upi-section" id="upiSection">
                             <strong>Pay via UPI</strong>
                             <img src="img/home/QR.jpeg" alt="UPI QR">
                             <div class="upi-id">7905729993@ybl</div>
                         </div>
+
                         <!-- FORM -->
                         <div class="form-group">
                             <label>Delivery Address</label>
@@ -74,10 +84,12 @@
                             <label>Phone</label>
                             <input id="customerPhone">
                         </div>
+
                         <div class="action-bar">
                             <button class="btn-secondary" id="continueShopping">← Continue Shopping</button>
                             <button class="btn-primary" id="confirmOrder">Place Order</button>
                         </div>
+
                     </div>
                 </div>
 
@@ -86,18 +98,39 @@
         </div>
     </section>
 
-    <footer class="footer-bottom">
-        © 2025 Safachatt Group. All Rights Reserved.
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-item">
+                <h3>Contact Us</h3>
+                <p><i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/919625290733" target="_blank">+91-9625290733</a>
+                </p>
+                <p><i class="fas fa-envelope"></i>
+                    <a href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a>
+                </p>
+                <p><i class="fas fa-map-marker-alt"></i>
+                    C8/17 Block C, Govind Puram, Ghaziabad 201013
+                </p>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
     </footer>
-
-    <!-- jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const container = document.querySelector(".checkout-items");
             const totalEl = document.getElementById("totalAmount");
             const savedEl = document.getElementById("totalSaved");
+            const paymentSelect = document.getElementById("paymentMethod");
+            const upiSection = document.getElementById("upiSection");
+
+            // Toggle QR code
+            paymentSelect.addEventListener("change", () => {
+                upiSection.style.display =
+                    paymentSelect.value === "Cash on Delivery" ? "none" : "block";
+            });
 
             function renderCart() {
                 const cart = JSON.parse(localStorage.getItem("cartData")) || [];
@@ -110,7 +143,7 @@
                 }
 
                 cart.forEach(item => {
-                    const price = (item.price * (1 - item.discount / 100)).toFixed(0);
+                    const price = Math.round(item.price * (1 - item.discount / 100));
                     const subtotal = price * item.qty;
                     const save = (item.price - price) * item.qty;
 
@@ -118,16 +151,16 @@
                     saved += save;
 
                     container.innerHTML += `
-                <div class="checkout-item">
-                    <img src="${item.img}">
-                    <div>
-                        <h3>${item.name}</h3>
-                        <p>Qty: ${item.qty}</p>
-                        <p>₹${price} <del>₹${item.price}</del></p>
-                    </div>
-                    <div class="item-total">₹${subtotal}</div>
-                </div>
-            `;
+                        <div class="checkout-item">
+                            <img src="${item.img}">
+                            <div>
+                                <h3>${item.name}</h3>
+                                <p>Qty: ${item.qty}</p>
+                                <p>₹${price} <del>₹${item.price}</del></p>
+                            </div>
+                            <div class="item-total">₹${subtotal}</div>
+                        </div>
+                    `;
                 });
 
                 totalEl.textContent = "₹" + total;
@@ -135,6 +168,59 @@
             }
 
             renderCart();
+
+            // PLACE ORDER VIA WHATSAPP
+            document.getElementById("confirmOrder").addEventListener("click", () => {
+                const name = document.getElementById("customerName").value.trim();
+                const phone = document.getElementById("customerPhone").value.trim();
+                const address = document.getElementById("checkoutAddress").value.trim();
+                const paymentMethod = paymentSelect.value;
+                const cart = JSON.parse(localStorage.getItem("cartData")) || [];
+
+                if (!name || !phone || !address) {
+                    alert("Please fill all details");
+                    return;
+                }
+
+                if (!cart.length) {
+                    alert("Your cart is empty");
+                    return;
+                }
+
+                let message = `🛒 *New Order – Safachatt Group*\n\n`;
+                message += `👤 Name: ${name}\n`;
+                message += `📞 Phone: ${phone}\n`;
+                message += `📍 Address: ${address}\n`;
+                message += `💳 Payment Method: ${paymentMethod}\n\n`;
+                message += `🧾 *Order Items:*\n`;
+
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    const price = Math.round(item.price * (1 - item.discount / 100));
+                    const subtotal = price * item.qty;
+                    total += subtotal;
+
+                    message += `${index + 1}. ${item.name}\n`;
+                    message += `   Qty: ${item.qty}\n`;
+                    message += `   Price: ₹${price}\n`;
+                    message += `   Subtotal: ₹${subtotal}\n\n`;
+                });
+
+                message += `💰 *Total Amount: ₹${total}*\n\n`;
+                message += `✅ Please confirm this order.`;
+
+                const whatsappNumber = "9625290733"; // CHANGE IF NEEDED
+                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+                window.open(whatsappURL, "_blank");
+
+                localStorage.removeItem("cartData");
+            });
+
+            document.getElementById("continueShopping").onclick = () => {
+                window.location.href = "index.html";
+            };
         });
     </script>
 

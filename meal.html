@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ghanshyam Bhog Atta</title>
+
+    <link rel="stylesheet" href="css/meal.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+
+    <style>
+        .cart-counter {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: red;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 12px;
+            padding: 2px 6px;
+        }
+
+        .add-cart-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">Safachatt Group</div>
+
+        <!-- FLOATING BUTTONS -->
+        <button id="goToCheckout" style="display:none;">
+            🛒 Checkout
+            <span class="checkout-badge" id="checkoutBadge" style="display:none;"></span>
+        </button>
+
+        <button id="clearCart" style="display:none;">🧹 Clear Cart</button>
+
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="top-bar">
+        <h1>Ghanshyam Bhog Atta</h1>
+        <span>Shuddhta Har Roti Mein</span>
+    </header>
+
+    <section class="hero">
+        <h2>Pure • Fresh • Chakki Atta</h2>
+        <p>100% Whole Wheat Flour | Daily Fresh Grinding</p>
+    </section>
+
+    <section class="cards modern">
+
+        <!-- 10 KG -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="img/meal/10KG.png" />
+            </div>
+
+            <h3>Ghanshyam Bhog Atta</h3>
+            <p class="desc">Stone ground chakki atta</p>
+            <div class="price">₹310 / 10 KG</div>
+
+            <div class="cart-controls">
+                <button class="qty-btn" onclick="decreaseQty(this)">−</button>
+                <span class="qty">0</span>
+                <button class="qty-btn" onclick="increaseQty(this)">+</button>
+            </div>
+
+            <button class="add-cart-btn" data-name="Ghanshyam Bhog Atta 10 KG" data-price="310" disabled
+                onclick="addToCart(this)">
+                Add to Cart
+            </button>
+        </div>
+
+        <!-- 9 KG -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="img/meal/10KG.png" />
+            </div>
+
+            <h3>Ghanshyam Bhog Atta</h3>
+            <p class="desc">Stone ground chakki atta</p>
+            <div class="price">₹280 / 9 KG</div>
+
+            <div class="cart-controls">
+                <button class="qty-btn" onclick="decreaseQty(this)">−</button>
+                <span class="qty">0</span>
+                <button class="qty-btn" onclick="increaseQty(this)">+</button>
+            </div>
+
+            <button class="add-cart-btn" data-name="Ghanshyam Bhog Atta 9 KG" data-price="280" disabled
+                onclick="addToCart(this)">
+                Add to Cart
+            </button>
+        </div>
+
+        <!-- 50 KG -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="img/meal/50KG.png" />
+            </div>
+
+            <h3>Ghanshyam Bhog Atta</h3>
+            <p class="desc">Stone ground chakki atta</p>
+            <div class="price">₹1575 / 50 KG</div>
+
+            <div class="cart-controls">
+                <button class="qty-btn" onclick="decreaseQty(this)">−</button>
+                <span class="qty">0</span>
+                <button class="qty-btn" onclick="increaseQty(this)">+</button>
+            </div>
+
+            <button class="add-cart-btn" data-name="Ghanshyam Bhog Atta 50 KG" data-price="1575" disabled
+                onclick="addToCart(this)">
+                Add to Cart
+            </button>
+        </div>
+
+    </section>
+
+    <footer id="contact">
+        <p>© 2025 Safachatt Group</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", updateCartCounter);
+
+        function increaseQty(btn) {
+            const qty = btn.previousElementSibling;
+            qty.innerText = +qty.innerText + 1;
+            toggleButton(btn);
+        }
+
+        function decreaseQty(btn) {
+            const qty = btn.nextElementSibling;
+            if (+qty.innerText > 0) qty.innerText--;
+            toggleButton(btn);
+        }
+
+        function toggleButton(btn) {
+            const card = btn.closest(".product-card");
+            const qty = +card.querySelector(".qty").innerText;
+            card.querySelector(".add-cart-btn").disabled = qty === 0;
+        }
+
+        function addToCart(btn) {
+            const card = btn.closest(".product-card");
+            const qtyEl = card.querySelector(".qty");
+            const qty = +qtyEl.innerText;
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const name = btn.dataset.name;
+            const price = +btn.dataset.price;
+
+            const existing = cart.find(i => i.name === name);
+            if (existing) existing.qty += qty;
+            else cart.push({ name, price, qty });
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            qtyEl.innerText = 0;
+            btn.disabled = true;
+            updateCartCounter();
+
+            btn.innerText = "Added ✓";
+            setTimeout(() => btn.innerText = "Add to Cart", 1000);
+        }
+
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const count = cart.reduce((s, i) => s + i.qty, 0);
+            const c = document.getElementById("cartCounter");
+            c.innerText = count;
+            c.style.display = count ? "inline-block" : "none";
+        }
+    </script>
+
+</body>
+
+</html>
