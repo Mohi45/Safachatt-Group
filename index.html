@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="css/testimonials.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/checkout.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -22,12 +25,14 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="logo">Safachatt Group</div>
+
         <div style="position: relative;">
             <button class="menu-toggle">☰</button>
-            <span class="cart-counter" id="cartCounter">0</span>
+            <span class="cart-counter" id="cartCounter" style="display:none;"></span>
         </div>
+
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="makeover.html">Makeover</a></li>
             <li><a href="#products">Products</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -41,7 +46,6 @@
     </header>
 
     <div class="container">
-
         <h2 id="products">Our Products</h2>
 
         <!-- CATEGORIES -->
@@ -59,21 +63,22 @@
     </div>
 
     <!-- FLOATING BUTTONS -->
-    <button id="goToCheckout">
-        🛍️ Go to Checkout
-        <span class="checkout-badge" id="checkoutBadge">0</span>
+    <button id="goToCheckout" style="display:none;">
+        🛒 Checkout
+        <span class="checkout-badge" id="checkoutBadge" style="display:none;"></span>
     </button>
 
-    <button id="clearCart">🧹 Clear Cart</button>
+    <button id="clearCart" style="display:none;">🧹 Clear Cart</button>
 
+    <!-- SCRIPT -->
     <script>
-        /* ===== NAVBAR ===== */
+        /* NAVBAR */
         document.querySelector(".menu-toggle")
             .addEventListener("click", () =>
                 document.querySelector(".nav-links").classList.toggle("show")
             );
 
-        /* ===== CART HELPERS ===== */
+        /* CART HELPERS */
         const cartCounter = document.getElementById("cartCounter");
         const checkoutBtn = document.getElementById("goToCheckout");
         const checkoutBadge = document.getElementById("checkoutBadge");
@@ -91,24 +96,34 @@
             const cart = getCart();
             const qty = cart.reduce((s, i) => s + i.qty, 0);
 
-            cartCounter.textContent = qty;
-            checkoutBadge.textContent = qty;
+            if (qty > 0) {
+                cartCounter.textContent = qty;
+                cartCounter.style.display = "inline-block";
 
-            checkoutBtn.style.display = qty ? "block" : "none";
-            clearCartBtn.style.display = qty ? "block" : "none";
+                checkoutBadge.textContent = qty;
+                checkoutBadge.style.display = "inline-block";
+
+                checkoutBtn.style.display = "block";
+                clearCartBtn.style.display = "block";
+            } else {
+                cartCounter.style.display = "none";
+                checkoutBadge.style.display = "none";
+                checkoutBtn.style.display = "none";
+                clearCartBtn.style.display = "none";
+            }
         }
 
-        /* ===== PRODUCTS ===== */
+        /* PRODUCTS */
         const productsGrid = document.getElementById("productsGrid");
         let products = [];
         let currentCategory = "all";
 
         fetch("products.json")
-            .then(r => r.json())
+            .then(res => res.json())
             .then(data => {
                 products = data.map(p => ({
                     ...p,
-                    _key: `${p.id}_${p.name}`   // unique key
+                    _key: `${p.id}_${p.name}`
                 }));
                 renderProducts();
                 updateCartUI();
@@ -128,16 +143,16 @@
                 const qty = item ? item.qty : 0;
 
                 productsGrid.innerHTML += `
-            <div class="product-card">
-                <img src="${p.img}">
-                <h3>${p.name}</h3>
-                <p>
-                    ₹${(p.price * (1 - p.discount / 100)).toFixed(0)}
-                    <del>₹${p.price}</del>
-                    <span style="color:green;">(${p.discount}% OFF)</span>
-                </p>
+                <div class="product-card">
+                    <img src="${p.img}">
+                    <h3>${p.name}</h3>
+                    <p>
+                        ₹${(p.price * (1 - p.discount / 100)).toFixed(0)}
+                        <del>₹${p.price}</del>
+                        <span style="color:green;">(${p.discount}% OFF)</span>
+                    </p>
 
-                ${qty === 0
+                    ${qty === 0
                         ? `<button onclick="addToCart('${p._key}')">Add to Cart</button>`
                         : `
                         <div class="qty-controls">
@@ -145,24 +160,22 @@
                             <span>${qty}</span>
                             <button onclick="changeQty('${p._key}', 1)">+</button>
                         </div>
-                    `
-                    }
-            </div>
-        `;
+                    `}
+                </div>
+                `;
             });
         }
 
-        /* ===== CATEGORY FILTER ===== */
+        /* CATEGORY FILTER */
         document.querySelectorAll(".category-btn").forEach(btn => {
             btn.onclick = () => {
-                document.querySelectorAll(".category-btn")
-                    .forEach(b => b.classList.remove("active"));
+                document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
                 btn.classList.add("active");
                 renderProducts(btn.dataset.category);
             };
         });
 
-        /* ===== CART ACTIONS ===== */
+        /* CART ACTIONS */
         function addToCart(key) {
             const cart = getCart();
             const product = products.find(p => p._key === key);
@@ -189,7 +202,6 @@
             updateCartUI();
         }
 
-        /* ===== BUTTON ACTIONS ===== */
         checkoutBtn.onclick = () => location.href = "checkout.html";
 
         clearCartBtn.onclick = () => {
@@ -200,9 +212,33 @@
             }
         };
 
-        /* INIT */
         updateCartUI();
     </script>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-item">
+                <h3>Contact Us</h3>
+                <p><i class="fab fa-whatsapp"></i>
+                    <a href="https://wa.me/919625290733" target="_blank">+91-9625290733</a>
+                </p>
+                <p><i class="fas fa-envelope"></i>
+                    <a href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a>
+                </p>
+                <p><i class="fas fa-map-marker-alt"></i>
+                    C8/17 Block C, Govind Puram, Ghaziabad 201013
+                </p>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
+    </footer>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/919625290733" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
 </body>
 
