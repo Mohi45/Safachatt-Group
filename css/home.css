@@ -1,0 +1,135 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #b7cdd3, #e7f0f3);
+    color: #222;
+}
+
+/* ===== HEADER ===== */
+.main-header {
+    background: #1d2556;
+    color: #fff;
+    text-align: center;
+    padding: 25px 10px;
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 34px;
+    letter-spacing: 1px;
+}
+
+.main-header p {
+    margin: 5px 0 0;
+    opacity: 0.8;
+}
+
+/* ===== HERO ===== */
+.hero {
+    text-align: center;
+    padding: 40px 15px;
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* ===== COURSES ===== */
+.course-section {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 30px;
+    flex-wrap: wrap;
+}
+
+.course-card {
+    background: #1d2556;
+    width: 280px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+.course-card img {
+    width: 100%;
+    height: 345px;
+    object-fit: cover;
+    background: #fff;
+}
+
+.course-content {
+    padding: 18px;
+    color: #fff;
+}
+
+.meta {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.course-content h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.desc {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.price {
+    margin: 12px 0;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 18px;
+    background: #ffffff;
+    color: #1d2556;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #e0e0e0;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: #1d2556;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .course-card {
+        width: 90%;
+    }
+}

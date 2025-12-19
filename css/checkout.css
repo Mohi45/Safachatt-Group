@@ -1,324 +1,177 @@
-/* 🌸 Global Styles */
-body {
-    background: #fffaf7;
+* {
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+}
+
+body {
     margin: 0;
+    background: #f9fafb;
 }
 
-/* 🌸 Checkout Container */
-.checkout-container {
-    max-width: 800px;
-    margin: 120px auto;
+.navbar {
     background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 20px 30px;
-    padding-bottom: 120px;
-    /* Space for fixed buttons */
-}
-
-/* 🌷 Title */
-.checkout-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #d05d8b;
-}
-
-/* 🌸 Cart Items */
-.checkout-item {
+    padding: 16px 30px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background: #ffece5;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    flex-wrap: wrap;
+    border-bottom: 1px solid #eee;
 }
 
-.checkout-item img {
-    width: 80px;
-    height: 80px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-right: 15px;
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
 }
 
-.checkout-item div {
+.nav-links a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 500;
+}
+
+.checkout-page {
+    padding: 30px;
+}
+
+.checkout-card {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.checkout-title {
+    margin-bottom: 20px;
+}
+
+.checkout-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.checkout-left {
+    flex: 1.5;
+}
+
+.checkout-right {
     flex: 1;
-    margin-left: 10px;
 }
 
-.checkout-item h3 {
-    margin: 5px 0;
-    color: #333;
+/* STICKY PAYMENT */
+.sticky-payment {
+    position: sticky;
+    top: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.checkout-item p {
-    margin: 2px 0;
-    font-size: 0.9rem;
-}
-
-.item-total {
-    font-weight: 600;
-    color: #ff6f61;
-    text-align: right;
-    min-width: 80px;
-}
-
-.save-msg {
-    font-size: 0.9em;
-    color: #009688;
-    font-weight: 600;
-}
-
-/* 🌸 Summary Section */
 .checkout-summary {
-    margin-top: 20px;
-    border-top: 2px solid #eee;
-    padding-top: 15px;
-    text-align: right;
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
 }
 
-.total-amount {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #ff3b2f;
-}
-
-#totalSaved {
-    color: #2e7d32;
-    font-weight: 700;
-}
-
-/* 🌸 Address Input */
-.address-input label {
+.summary-row {
+    display: flex;
+    justify-content: space-between;
     font-weight: 600;
-    color: #333;
+}
+
+.saved-row {
+    color: green;
+    margin-top: 6px;
+}
+
+.upi-section {
+    background: #fff1f1;
+    border: 1px dashed #fca5a5;
+    padding: 16px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.upi-section img {
+    max-width: 180px;
+    margin: 12px auto;
+    display: block;
+}
+
+.upi-id {
+    font-weight: 600;
+}
+
+.form-group {
+    margin-top: 18px;
+}
+
+.form-group label {
     display: block;
     margin-bottom: 6px;
 }
 
-#checkoutAddress {
+.form-group input,
+.form-group textarea {
     width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 10px;
     padding: 10px;
-    font-size: 1rem;
-    resize: none;
-    outline: none;
-}
-
-/* 🌸 UPI Section */
-.upi-section {
-    text-align: center;
-    margin-top: 25px;
-    background: #fff;
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.upi-section h3 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.upi-section img {
-    width: 160px;
-    margin-top: 10px;
-    border-radius: 10px;
-}
-
-/* 🛒 Fixed Action Buttons (Bottom of Checkout Page) */
-.action-buttons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #fffaf7;
-    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px 20px;
-    z-index: 100;
-}
-
-/* 🩷 Button Base */
-.btn {
-    flex: 1;
-    text-align: center;
-    background: #ff6f61;
-    color: white;
-    padding: 14px 18px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.3s ease;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(255, 111, 97, 0.4);
-}
-
-.btn:hover {
-    background: #ff3b2f;
-    box-shadow: 0 6px 14px rgba(255, 59, 47, 0.5);
-}
-
-/* 💚 WhatsApp Button */
-#confirmWhatsApp {
-    background: #25d366;
-    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
-}
-
-#confirmWhatsApp:hover {
-    background: #1ebd5a;
-    box-shadow: 0 6px 14px rgba(30, 189, 90, 0.4);
-}
-
-/* 🧹 Floating Buttons (on product page) */
-#goToCheckout,
-#clearCart {
-    position: fixed;
-    right: 20px;
-    border: none;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    z-index: 999;
-}
-
-#goToCheckout {
-    bottom: 20px;
-    background: #d05d8b;
-    padding: 15px 35px;
-    border-radius: 50px;
-}
-
-#goToCheckout:hover {
-    background: #b84c76;
-    transform: scale(1.05);
-}
-
-#clearCart {
-    bottom: 80px;
-    background: #666;
-    padding: 12px 28px;
-    border-radius: 50px;
-}
-
-#clearCart:hover {
-    background: #444;
-    transform: scale(1.05);
-}
-
-/* ===== Qty Buttons ===== */
-.qty-controls {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.qty-controls button {
-    width: 36px;
-    height: 36px;
-    background: #ff6f61;
-    color: #fff;
-    border: none;
     border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
+    border: 1px solid #ddd;
 }
 
-.qty-controls span {
-    font-weight: bold;
-    font-size: 16px;
-    min-width: 22px;
-    text-align: center;
+.checkout-item {
+    background: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
-/* ===== Checkout Button ===== */
-#goToCheckout {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    background: #ff6f61;
+.checkout-item img {
+    width: 70px;
+    border-radius: 8px;
+}
+
+.item-total {
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.action-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background: #dc2626;
     color: #fff;
     border: none;
-    padding: 14px 20px;
-    border-radius: 30px;
-    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: 600;
     cursor: pointer;
-    display: none;
 }
 
-.checkout-badge {
-    background: #000;
-    color: #fff;
-    border-radius: 50%;
-    padding: 4px 8px;
-    font-size: 12px;
-    margin-left: 8px;
-}
-
-#clearCart {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #e74c3c;
-    color: #fff;
+.btn-secondary {
+    background: #fee2e2;
+    color: #b91c1c;
     border: none;
-    padding: 12px 18px;
-    border-radius: 30px;
-    font-size: 14px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: 600;
     cursor: pointer;
-    display: none;
 }
 
-/* 📱 Responsive Layout */
-@media (max-width: 600px) {
-
-    .checkout-item {
+/* MOBILE */
+@media (max-width: 768px) {
+    .checkout-layout {
         flex-direction: column;
-        align-items: flex-start;
     }
 
-    .item-total {
-        text-align: left;
-        margin-top: 5px;
+    .sticky-payment {
+        position: static;
     }
 
-    .action-buttons {
+    .action-bar {
         flex-direction: column;
-        padding: 12px;
-    }
-
-    .btn {
-        font-size: 1rem;
-        padding: 14px;
-        width: 100%;
-    }
-
-    #clearCart,
-    #goToCheckout {
-        width: calc(100% - 40px);
-        right: 20px;
-        left: 20px;
-        border-radius: 12px;
-        text-align: center;
-    }
-
-    #clearCart {
-        bottom: 80px;
-    }
-
-    #goToCheckout {
-        bottom: 20px;
     }
 }

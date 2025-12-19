@@ -2,60 +2,92 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Jyoti's Cosmetic House</title>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Checkout – Jyoti's Cosmetic House</title>
+
+    <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <nav class="navbar">
         <div class="logo">Safachatt Group</div>
-        <button class="menu-toggle">☰</button>
         <ul class="nav-links">
-            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="index.html#products">Products</a></li>
             <li><a href="index.html#contact">Contact</a></li>
         </ul>
     </nav>
 
-    <div class="checkout-container">
-        <h2 class="checkout-title">Checkout Summary</h2>
-        <div class="checkout-items"></div>
+    <section class="checkout-page">
+        <div class="checkout-card">
 
-        <div class="checkout-summary">
-            <p><strong>Total Amount:</strong> <span id="totalAmount">₹0</span></p>
-            <p style="color: green; font-weight: 600;">🎉 You saved <span id="totalSaved">₹0</span></p>
+            <h2 class="checkout-title">Checkout Summary</h2>
+
+            <div class="checkout-layout">
+
+                <!-- LEFT -->
+                <div class="checkout-left">
+                    <div class="checkout-items"></div>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="checkout-right">
+
+                    <!-- STICKY PAYMENT -->
+                    <div class="sticky-payment">
+
+                        <div class="checkout-summary">
+                            <div class="summary-row">
+                                <span>Total</span>
+                                <span id="totalAmount">₹0</span>
+                            </div>
+                            <div class="saved-row">
+                                🎉 You saved <span id="totalSaved">₹0</span>
+                            </div>
+                        </div>
+
+                        <div class="upi-section">
+                            <strong>Pay via UPI</strong>
+                            <img src="img/home/QR.jpeg" alt="UPI QR">
+                            <div class="upi-id">7905729993@ybl</div>
+                        </div>
+                        <!-- FORM -->
+                        <div class="form-group">
+                            <label>Delivery Address</label>
+                            <textarea id="checkoutAddress" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input id="customerName">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input id="customerPhone">
+                        </div>
+                        <div class="action-bar">
+                            <button class="btn-secondary" id="continueShopping">← Continue Shopping</button>
+                            <button class="btn-primary" id="confirmOrder">Place Order</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
+    </section>
 
-        <div class="upi-section">
-            <h3>Pay via UPI</h3>
-            <p>UPI ID: <strong>9625290733@ybl</strong></p>
-            <img src="img/upi-qr.png" alt="UPI QR" style="max-width:160px;">
-        </div>
-
-        <label for="checkoutAddress">Delivery Address</label>
-        <textarea id="checkoutAddress" rows="3" placeholder="Enter full address"></textarea>
-
-        <label for="customerName">Name</label>
-        <input type="text" id="customerName" placeholder="Enter your name">
-
-        <label for="customerPhone">Phone</label>
-        <input type="text" id="customerPhone" placeholder="Enter phone number">
-
-        <div class="action-buttons">
-            <button class="btn" id="continueShopping">← Continue Shopping</button>
-            <button class="btn" id="confirmOrder">Place Order</button>
-        </div>
-    </div>
-
-    <footer>
-        <p style="text-align:center;color:#888;">© 2025 Jyoti's Cosmetic House</p>
+    <footer class="footer-bottom">
+        © 2025 Safachatt Group. All Rights Reserved.
     </footer>
 
     <!-- jsPDF -->
@@ -66,7 +98,6 @@
             const container = document.querySelector(".checkout-items");
             const totalEl = document.getElementById("totalAmount");
             const savedEl = document.getElementById("totalSaved");
-            const confirmBtn = document.getElementById("confirmOrder");
 
             function renderCart() {
                 const cart = JSON.parse(localStorage.getItem("cartData")) || [];
@@ -75,11 +106,8 @@
 
                 if (!cart.length) {
                     container.innerHTML = "<p>No items in cart.</p>";
-                    confirmBtn.disabled = true;
                     return;
                 }
-
-                confirmBtn.disabled = false;
 
                 cart.forEach(item => {
                     const price = (item.price * (1 - item.discount / 100)).toFixed(0);
@@ -96,7 +124,6 @@
                         <h3>${item.name}</h3>
                         <p>Qty: ${item.qty}</p>
                         <p>₹${price} <del>₹${item.price}</del></p>
-                        <p class="save-msg">You save ₹${save}</p>
                     </div>
                     <div class="item-total">₹${subtotal}</div>
                 </div>
@@ -108,103 +135,6 @@
             }
 
             renderCart();
-
-            document.getElementById("continueShopping").onclick = () => {
-                window.location.href = "index.html";
-            };
-
-            confirmBtn.onclick = async () => {
-                const cart = JSON.parse(localStorage.getItem("cartData")) || [];
-                const address = document.getElementById("checkoutAddress").value.trim();
-                const customerName = document.getElementById("customerName").value.trim();
-                const customerPhone = document.getElementById("customerPhone").value.trim();
-
-                if (!cart.length || !address || !customerName || !customerPhone) {
-                    alert("Please fill all fields and ensure cart is not empty.");
-                    return;
-                }
-
-                const orderId = "JCH" + Math.floor(10000 + Math.random() * 90000);
-                let total = 0, saved = 0;
-
-                cart.forEach(i => {
-                    const price = (i.price * (1 - i.discount / 100)).toFixed(0);
-                    total += price * i.qty;
-                    saved += (i.price - price) * i.qty;
-                });
-
-                // 1️⃣ Generate PDF
-                try {
-                    await generatePDF(cart, address, customerName, orderId, total, saved);
-                } catch (err) {
-                    console.error("PDF generation failed:", err);
-                }
-                // 3️⃣ Open WhatsApp
-                // 3️⃣ Open WhatsApp with full order details
-                let msgText = `🛍️ *New Order*\nOrder ID: ${orderId}\nName: ${customerName}\nPhone: ${customerPhone}\nAddress: ${address}\n\n*Items:*`;
-
-                cart.forEach(item => {
-                    const price = (item.price * (1 - item.discount / 100)).toFixed(0);
-                    msgText += `\n- ${item.name} x${item.qty} = ₹${price * item.qty}`;
-                });
-
-                msgText += `\n\n*Total: ₹${total}*`;
-
-                const whatsappURL = `https://wa.me/919625290733?text=${encodeURIComponent(msgText)}`;
-                window.open(whatsappURL, "_blank");
-
-
-                // 4️⃣ Clear cart and update UI
-                localStorage.removeItem("cartData");
-                renderCart();
-                alert("Order placed successfully!");
-            };
-
-            async function generatePDF(cart, address, name, orderId, total, saved) {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                let y = 20;
-
-                doc.setFontSize(18);
-                doc.text("Jyoti's Cosmetic House", 105, y, { align: "center" });
-                y += 10;
-
-                doc.setFontSize(12);
-                doc.text(`Order ID: ${orderId}`, 10, y); y += 7;
-                doc.text(`Name: ${name}`, 10, y); y += 7;
-                doc.text(`Address: ${address}`, 10, y); y += 10;
-
-                for (const item of cart) {
-                    let img = null;
-                    try { img = await loadImage(item.img); }
-                    catch (e) { console.warn("Image failed, skipping:", item.img); }
-
-                    const price = (item.price * (1 - item.discount / 100)).toFixed(0);
-
-                    if (img) doc.addImage(img, "JPEG", 10, y, 30, 30);
-                    doc.text(item.name, 45, y + 6);
-                    doc.text(`Qty: ${item.qty}`, 45, y + 14);
-                    doc.text(`Price: ₹${price}`, 45, y + 22);
-                    y += 40;
-
-                    if (y > 260) { doc.addPage(); y = 20; }
-                }
-
-                doc.text(`Total: ₹${total}`, 10, y); y += 6;
-                doc.text(`You Saved: ₹${saved}`, 10, y);
-
-                doc.save(`Order_${orderId}.pdf`);
-            }
-
-            function loadImage(src) {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.crossOrigin = "anonymous";
-                    img.onload = () => resolve(img);
-                    img.onerror = () => reject(new Error("Image load failed"));
-                    img.src = src;
-                });
-            }
         });
     </script>
 
