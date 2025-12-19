@@ -1,0 +1,30 @@
+name: Update Google Sheet JSON
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # once per day (UTC)
+  workflow_dispatch:      # manual run button
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Run script
+        run: node readSheet.js
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add data.json
+          git commit -m "Auto-update data.json" || echo "No changes"
+          git push
