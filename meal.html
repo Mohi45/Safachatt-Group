@@ -26,6 +26,18 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        /* Cart buttons section */
+        .cart-actions-section {
+            display: none;
+            justify-content: center;
+            gap: 14px;
+            margin: 40px auto 60px;
+        }
+
+        #goToCheckout {
+            position: relative;
+        }
     </style>
 </head>
 
@@ -33,16 +45,7 @@
 
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="logo">Safachatt Group</div>
-
-        <!-- FLOATING BUTTONS -->
-        <button id="goToCheckout" style="display:none;">
-            🛒 Checkout
-            <span class="checkout-badge" id="checkoutBadge" style="display:none;"></span>
-        </button>
-
-        <button id="clearCart" style="display:none;">🧹 Clear Cart</button>
-
+        <div class="logo">Safachatt Group || Since 2022</div>
         <ul class="nav-links">
             <li><a href="home.html">Home</a></li>
             <li><a href="#products">Products</a></li>
@@ -60,7 +63,8 @@
         <p>100% Whole Wheat Flour | Daily Fresh Grinding</p>
     </section>
 
-    <section class="cards modern">
+    <!-- PRODUCTS -->
+    <section class="cards modern" id="products">
 
         <!-- 10 KG -->
         <div class="product-card">
@@ -130,12 +134,44 @@
 
     </section>
 
+    <!-- CART ACTIONS -->
+    <div class="cart-actions-section" id="cartActions">
+        <button id="goToCheckout">
+            🛒 Checkout
+            <span class="cart-counter" id="cartCounter">0</span>
+        </button>
+
+        <button id="clearCart">✖ Clear Cart</button>
+    </div>
+
+    <!-- FOOTER -->
     <footer id="contact">
-        <p>© 2025 Safachatt Group</p>
+        <div class="footer-container">
+            <div class="footer-item">
+                <h3>Contact Us</h3>
+                <p>WhatsApp:
+                    <a href="https://wa.me/919719790045" target="_blank">+91-9719790045</a>
+                </p>
+                <p>Email:
+                    <a href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a>
+                </p>
+                <p>Address: Vill. Sathiya Sasni Hathras - 204216</p>
+            </div>
+        </div>
+        <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
     </footer>
 
+    <!-- SCRIPT -->
     <script>
-        document.addEventListener("DOMContentLoaded", updateCartCounter);
+        document.addEventListener("DOMContentLoaded", () => {
+            updateCartUI();
+
+            document.getElementById("goToCheckout")
+                .addEventListener("click", goToCheckout);
+
+            document.getElementById("clearCart")
+                .addEventListener("click", clearCart);
+        });
 
         function increaseQty(btn) {
             const qty = btn.previousElementSibling;
@@ -172,18 +208,43 @@
 
             qtyEl.innerText = 0;
             btn.disabled = true;
-            updateCartCounter();
 
             btn.innerText = "Added ✓";
             setTimeout(() => btn.innerText = "Add to Cart", 1000);
+
+            updateCartUI();
         }
 
-        function updateCartCounter() {
+        function updateCartUI() {
             const cart = JSON.parse(localStorage.getItem("cart")) || [];
             const count = cart.reduce((s, i) => s + i.qty, 0);
-            const c = document.getElementById("cartCounter");
-            c.innerText = count;
-            c.style.display = count ? "inline-block" : "none";
+
+            const counter = document.getElementById("cartCounter");
+            const cartActions = document.getElementById("cartActions");
+
+            if (count > 0) {
+                counter.innerText = count;
+                cartActions.style.display = "flex";
+            } else {
+                cartActions.style.display = "none";
+            }
+        }
+
+        function goToCheckout() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (!cart.length) {
+                alert("Your cart is empty");
+                return;
+            }
+            window.location.href = "mealcheckout.html";
+        }
+
+
+        function clearCart() {
+            if (confirm("Clear cart?")) {
+                localStorage.removeItem("cart");
+                updateCartUI();
+            }
         }
     </script>
 

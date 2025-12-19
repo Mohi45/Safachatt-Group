@@ -1,0 +1,156 @@
+ * {
+     box-sizing: border-box;
+     font-family: 'Poppins', sans-serif;
+ }
+
+ body {
+     margin: 0;
+     background: #f4f6f9;
+     color: #333;
+ }
+
+ /* NAVBAR */
+ .navbar {
+     background: #111827;
+     color: #fff;
+     padding: 14px 24px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .navbar .logo {
+     font-size: 20px;
+     font-weight: 600;
+ }
+
+ .nav-links a {
+     color: #fff;
+     text-decoration: none;
+     font-size: 14px;
+ }
+
+ /* CONTAINER */
+ .checkout-container {
+     max-width: 520px;
+     background: #fff;
+     margin: 30px auto;
+     padding: 25px;
+     border-radius: 14px;
+     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+ }
+
+ .checkout-container h2 {
+     text-align: center;
+     margin-bottom: 20px;
+ }
+
+ label {
+     font-size: 14px;
+     font-weight: 500;
+     margin-top: 14px;
+     display: block;
+ }
+
+ input,
+ textarea,
+ select {
+     width: 100%;
+     padding: 11px;
+     margin-top: 6px;
+     border-radius: 8px;
+     border: 1px solid #ddd;
+     font-size: 14px;
+ }
+
+ textarea {
+     resize: none;
+ }
+
+ /* ORDER SUMMARY */
+ .summary {
+     background: #f9fafb;
+     border-radius: 10px;
+     padding: 14px;
+     margin-top: 18px;
+     font-size: 14px;
+ }
+
+ .summary h3 {
+     margin-top: 0;
+     font-size: 16px;
+ }
+
+ .summary p {
+     margin: 6px 0;
+ }
+
+ .summary .total {
+     font-weight: 600;
+     margin-top: 10px;
+ }
+
+ /* UPI BOX */
+ .upi-box {
+     display: none;
+     background: #eef2ff;
+     border-radius: 12px;
+     padding: 16px;
+     margin-top: 16px;
+     text-align: center;
+ }
+
+ .upi-box img {
+     width: 170px;
+     margin: 10px 0;
+ }
+
+ .upi-id {
+     font-weight: 600;
+     font-size: 14px;
+ }
+
+ /* BUTTONS */
+ button {
+     width: 100%;
+     border: none;
+     padding: 13px;
+     margin-top: 18px;
+     border-radius: 10px;
+     background: #22c55e;
+     color: #fff;
+     font-size: 15px;
+     font-weight: 500;
+     cursor: pointer;
+ }
+
+ button:hover {
+     opacity: 0.9;
+ }
+
+ .back-btn {
+     background: #e5e7eb;
+     color: #111;
+     margin-top: 10px;
+ }
+
+ /* FOOTER */
+ footer {
+     background: #111827;
+     color: #fff;
+     margin-top: 40px;
+     padding: 20px;
+     font-size: 13px;
+     text-align: center;
+ }
+
+ footer a {
+     color: #93c5fd;
+     text-decoration: none;
+ }
+
+ @media(max-width: 600px) {
+     .checkout-container {
+         margin: 15px;
+     }
+ }
