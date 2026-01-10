@@ -5,17 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ✅ SEO Title -->
+    <!-- ✅ SEO Title & Meta -->
     <title>Makeover Services | Safachatt Group - Bridal & Party Makeovers</title>
-
-    <!-- ✅ Meta Description -->
     <meta name="description"
         content="Professional makeover services by Safachatt Group. Bridal, party, and personalized beauty makeovers to make you shine on every occasion.">
-
-    <!-- ✅ Ensure Google indexes the page -->
     <meta name="robots" content="index, follow">
 
-    <!-- ✅ Structured Data for Google Rich Results -->
+    <!-- ✅ Structured Data for Google -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -23,9 +19,12 @@
       "name": "Makeover Services",
       "provider": {
         "@type": "Organization",
-        "name": "Safachatt Group"
+        "name": "Safachatt Group",
+        "url": "https://mohi45.github.io/Safachatt-Group/"
       },
-      "description": "Professional makeover services including bridal, party, and personalized beauty sessions."
+      "description": "Professional makeover services including bridal, party, and personalized beauty sessions.",
+      "areaServed": "Ghaziabad, India",
+      "telephone": "+919625290733"
     }
     </script>
 
@@ -49,6 +48,11 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
+
+    <!-- Breadcrumbs -->
+    <p style="text-align:center; margin:15px 0;">
+        <a href="index.html">Home</a> &gt; <a href="bridal-packages.html">Pre-Bridal Packages</a> &gt; Makeover Services
+    </p>
 
     <!-- 🌸 Mobile Tip -->
     <div class="mobile-tip">
@@ -89,7 +93,7 @@
                 </button>
             </div>
 
-            <div class="service-details" id="service-details">
+            <div class="service-details" id="service-details" alt="Service details image">
                 <!-- Dynamic service content will load here -->
             </div>
         </div>
@@ -181,6 +185,7 @@
             const data = serviceData[key];
             const details = document.getElementById("service-details");
             details.style.backgroundImage = `url('${data.img}')`;
+            details.setAttribute('alt', `${data.title} service image`);
             details.style.backgroundSize = "cover";
             details.style.backgroundPosition = "center";
             details.style.backgroundRepeat = "no-repeat";
