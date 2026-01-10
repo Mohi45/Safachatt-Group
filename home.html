@@ -3,84 +3,239 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Safachatt Group | Since 2022</title>
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/footer.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jyoti's Cosmetic House</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/checkout.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <!-- ===== HEADER ===== -->
-    <header class="main-header">
-        <h1>Safachatt Group</h1>
-        <p>Since 2022</p>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">Safachatt Group</div>
+
+        <div style="position: relative;">
+            <button class="menu-toggle">☰</button>
+            <span class="cart-counter" id="cartCounter" style="display:none;"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header id="home">
+        <h1>Jyoti's Cosmetic House</h1>
+        <p>Affordable Natural Beauty</p>
     </header>
 
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero">
-        <h2>Care You Can Feel. Purity You Can Trust.</h2>
-        <p>From Beauty to Daily Essentials</p>
-    </section>
+    <div class="container">
+        <h2 id="products">Our Products</h2>
 
-    <!-- ===== COURSES ===== -->
-    <section class="course-section">
-
-        <div class="course-card">
-            <img src="img/home/cosmatic.jpg" alt="Cosmetic House">
-            <div class="course-content">
-                <p class="meta">40+ interested Users ⭐ 5.0</p>
-                <h3>Jyoti's Cosmetic House</h3>
-                <p class="desc">Affordable Natural Beauty</p>
-                <p class="price">Price started : ₹19</p>
-                <a href="index.html" class="btn">Explore</a>
-            </div>
+        <!-- CATEGORIES -->
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="SUNSCREEN">SUNSCREEN</button>
+            <button class="category-btn" data-category="Body-Loation">Body Loation</button>
+            <button class="category-btn" data-category="Beauty-Essentials">Beauty Essentials</button>
+            <button class="category-btn" data-category="scrubs">Face & Body Scrubs</button>
+            <button class="category-btn" data-category="Serums">Serum Collections</button>
         </div>
 
-        <div class="course-card">
-            <img src="img/bridal/PRE-BRIDAL2.jpg" alt="Full Stack Course">
-            <div class="course-content">
-                <p class="meta">70 interested Users ⭐ 5.0</p>
-                <h3>Jyoti's Makeover House</h3>
-                <p class="desc">Enhancing Beauty. Elevating Confidence.</p>
-                <p class="price">Price Started: ₹999</p>
-                <a href="makeover.html" class="btn">Explore</a>
-            </div>
-        </div>
+        <!-- PRODUCTS -->
+        <div class="products" id="productsGrid"></div>
+    </div>
 
-        <div class="course-card">
-            <img src="img/home/Atta.png" alt="DSA Course">
-            <div class="course-content">
-                <p class="meta">100+ Happy Home Makers ⭐ 5.0</p>
-                <h3>Ghanshyam Bhog Atta</h3>
-                <p class="desc">Shuddhta Har Roti Mein – By Safachatt Group (Since 2022)</p>
-                <p class="price">Price started : ₹299</p>
-                <a href="meal.html" class="btn">Explore</a>
-            </div>
-        </div>
+    <!-- FLOATING BUTTONS -->
+    <button id="goToCheckout">
+        🛒 Checkout
+        <span class="checkout-badge" id="checkoutBadge"></span>
+    </button>
 
-    </section>
+    <button id="clearCart">🧹 Clear Cart</button>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- SCRIPT -->
+    <script>
+        /* NAVBAR */
+        document.querySelector(".menu-toggle")
+            .addEventListener("click", () =>
+                document.querySelector(".nav-links").classList.toggle("show")
+            );
+
+        /* CART HELPERS */
+        const cartCounter = document.getElementById("cartCounter");
+        const checkoutBtn = document.getElementById("goToCheckout");
+        const checkoutBadge = document.getElementById("checkoutBadge");
+        const clearCartBtn = document.getElementById("clearCart");
+
+        function getCart() {
+            return JSON.parse(localStorage.getItem("cartData")) || [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem("cartData", JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const cart = getCart();
+            const qty = cart.reduce((s, i) => s + i.qty, 0);
+
+            if (qty > 0) {
+                cartCounter.textContent = qty;
+                cartCounter.style.display = "inline-block";
+
+                checkoutBadge.textContent = qty;
+                checkoutBadge.style.display = "inline-block";
+
+                checkoutBtn.style.display = "block";
+                clearCartBtn.style.display = "block";
+            } else {
+                cartCounter.style.display = "none";
+                checkoutBadge.style.display = "none";
+                checkoutBtn.style.display = "none";
+                clearCartBtn.style.display = "none";
+            }
+        }
+
+        /* PRODUCTS */
+        const productsGrid = document.getElementById("productsGrid");
+        let products = [];
+        let currentCategory = "all";
+
+        fetch("products.json")
+            .then(res => res.json())
+            .then(data => {
+                products = data.map(p => ({
+                    ...p,
+                    _key: `${p.id}_${p.name}`
+                }));
+                renderProducts();
+                updateCartUI();
+            });
+
+        function renderProducts(category = "all") {
+            currentCategory = category;
+            productsGrid.innerHTML = "";
+
+            const cart = getCart();
+            const list = category === "all"
+                ? products
+                : products.filter(p => p.category === category);
+
+            list.forEach(p => {
+                const item = cart.find(c => c._key === p._key);
+                const qty = item ? item.qty : 0;
+
+                productsGrid.innerHTML += `
+                <div class="product-card">
+                    <img src="${p.img}">
+                    <h3>${p.name}</h3>
+                    <p>
+                        ₹${(p.price * (1 - p.discount / 100)).toFixed(0)}
+                        <del>₹${p.price}</del>
+                        <span style="color:green;">(${p.discount}% OFF)</span>
+                    </p>
+
+                    ${qty === 0
+                        ? `<button onclick="addToCart('${p._key}')">Add to Cart</button>`
+                        : `
+                        <div class="qty-controls">
+                            <button onclick="changeQty('${p._key}', -1)">−</button>
+                            <span>${qty}</span>
+                            <button onclick="changeQty('${p._key}', 1)">+</button>
+                        </div>
+                    `}
+                </div>
+                `;
+            });
+        }
+
+        /* CATEGORY FILTER */
+        document.querySelectorAll(".category-btn").forEach(btn => {
+            btn.onclick = () => {
+                document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                renderProducts(btn.dataset.category);
+            };
+        });
+
+        /* CART ACTIONS */
+        function addToCart(key) {
+            const cart = getCart();
+            const product = products.find(p => p._key === key);
+
+            const existing = cart.find(i => i._key === key);
+            if (existing) existing.qty++;
+            else cart.push({ ...product, qty: 1 });
+
+            saveCart(cart);
+            renderProducts(currentCategory);
+            updateCartUI();
+        }
+
+        function changeQty(key, diff) {
+            const cart = getCart();
+            const index = cart.findIndex(i => i._key === key);
+            if (index === -1) return;
+
+            cart[index].qty += diff;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+
+            saveCart(cart);
+            renderProducts(currentCategory);
+            updateCartUI();
+        }
+
+        checkoutBtn.onclick = () => location.href = "checkout.html";
+
+        clearCartBtn.onclick = () => {
+            if (confirm("Clear all cart items?")) {
+                localStorage.removeItem("cartData");
+                renderProducts(currentCategory);
+                updateCartUI();
+            }
+        };
+
+        updateCartUI();
+    </script>
+
+    <!-- FOOTER -->
     <footer id="contact">
         <div class="footer-container">
             <div class="footer-item">
                 <h3>Contact Us</h3>
-                <p><i class="fab fa-whatsapp"></i> WhatsApp:
+                <p><i class="fab fa-whatsapp"></i>
                     <a href="https://wa.me/919625290733" target="_blank">+91-9625290733</a>
                 </p>
-                <p><i class="fas fa-envelope"></i> Email:
+                <p><i class="fas fa-envelope"></i>
                     <a href="mailto:mjsafachattgroup@gmail.com">mjsafachattgroup@gmail.com</a>
                 </p>
-                <p><i class="fas fa-map-marker-alt"></i> Address: C8/17 Block C, Govind Puram, Ghaziabad 201013</p>
+                <p><i class="fas fa-map-marker-alt"></i>
+                    C8/17 Block C, Govind Puram, Ghaziabad 201013
+                </p>
             </div>
         </div>
         <div class="footer-divider"></div>
         <p class="footer-bottom">© 2025 Safachatt Group. All Rights Reserved.</p>
     </footer>
-    <a href="https://wa.me/919625290733" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/919625290733" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+
 </body>
 
 </html>
