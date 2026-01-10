@@ -1,22 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
   <!-- Homepage -->
   <url>
     <loc>https://mohi45.github.io/Safachatt-Group/</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Cosmetic House page -->
-  <url>
-    <loc>https://mohi45.github.io/Safachatt-Group/index.html</loc>
-    <priority>0.9</priority>
-  </url>
-  <!-- Makeover page -->
+
+  <!-- Makeover Page -->
   <url>
     <loc>https://mohi45.github.io/Safachatt-Group/makeover.html</loc>
-    <priority>0.8</priority>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
-  <!-- Meal page -->
+
+  <!-- Bridal Packages Page -->
   <url>
-    <loc>https://mohi45.github.io/Safachatt-Group/meal.html</loc>
-    <priority>0.8</priority>
+    <loc>https://mohi45.github.io/Safachatt-Group/bridal-packages.html</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
+
+  <!-- Optional: Add other pages if you have -->
+  <!-- <url>
+    <loc>https://mohi45.github.io/Safachatt-Group/other-page.html</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url> -->
+
 </urlset>
